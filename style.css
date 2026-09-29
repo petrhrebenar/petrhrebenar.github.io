@@ -1,0 +1,45 @@
+@font-face { font-family: "Latin Modern Roman"; src: url("fonts/lmroman10-regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Latin Modern Roman"; src: url("fonts/lmroman10-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Latin Modern Roman"; src: url("fonts/lmroman10-bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Latin Modern Roman"; src: url("fonts/lmroman10-bolditalic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+
+html { background: #fff; color: #000; }
+body {
+  margin: 0;
+  font-family: "Latin Modern Roman", "Computer Modern Serif", Georgia, serif;
+  font-size: 22px;
+  line-height: 1.35;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+a { color: #000; }
+
+/* Home page: centred card, as in the original template */
+.home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.card { max-width: 34em; }
+.card .name { font-weight: 700; font-size: 1.15em; margin-bottom: 1em; }
+.card .contact { display: grid; grid-template-columns: max-content 1fr; column-gap: 0.8em; margin-top: 0.3em; }
+.card .profiles { margin-top: 1em; }
+.link-row { display: flex; gap: 2.5em; margin-top: 1.4em; font-weight: 700; }
+
+/* Inner pages */
+.container { max-width: 40em; margin: 0 auto; padding: 1.2em 16px 3em; }
+.back { margin-bottom: 1em; }
+h1 { font-size: 1em; text-align: center; letter-spacing: 0.08em; margin: 0.5em 0 1em; }
+h2 { font-size: 1em; margin: 1.6em 0 0.4em; }
+.item { padding: 0.45em 0 0.45em 2ch; text-indent: -2ch; }
+.item .links { display: block; }
+
+@media (max-width: 600px) {
+  body { font-size: 18px; }
+  .card .contact { grid-template-columns: 1fr; }
+  .card .contact .label { margin-top: 0.4em; }
+}
+.nw { white-space: nowrap; }
