@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Projects and tasks</title>
+<style>
+:root{
+  --bg:#f7f7f5; --card:#ffffff; --ink:#1c1c1a; --muted:#6b6b66; --line:#e4e3de;
+  --accent:#2f5d8a; --accent-soft:#e3ecf5; --warm:#b0592d; --warm-soft:#f6e7de;
+  --late:#b3261e; --ok:#2e7d4f; --stage:#d9d8d2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161615; --card:#1f1f1d; --ink:#ecebe6; --muted:#9a9993; --line:#33332f;
+    --accent:#7fb0de; --accent-soft:#22313f; --warm:#e39a72; --warm-soft:#3a2a21;
+    --late:#f08a80; --ok:#7cc79a; --stage:#3a3a36;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161615; --card:#1f1f1d; --ink:#ecebe6; --muted:#9a9993; --line:#33332f;
+  --accent:#7fb0de; --accent-soft:#22313f; --warm:#e39a72; --warm-soft:#3a2a21;
+  --late:#f08a80; --ok:#7cc79a; --stage:#3a3a36;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+h1{font-size:22px;margin:0;flex:1}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:30px 0 10px;font-weight:600}
+.status{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dot.on{background:var(--ok)} .dot.busy{background:var(--warm)}
+button,input,select{font:inherit;color:inherit}
+.btn{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.banner{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:14px;margin-bottom:16px}
+.banner a{color:var(--accent);cursor:pointer;text-decoration:underline}
+/* add form */
+form.add{display:flex;gap:8px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
+form.add input[type=text]{flex:1 1 260px;min-width:0;border:0;background:transparent;padding:6px 4px;outline:none}
+form.add select,form.add input[type=date]{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:5px 8px;max-width:100%}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:5px 12px;cursor:pointer}
+.seg button.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.seg button.on.cl{background:var(--warm-soft);color:var(--warm)}
+/* tabs */
+.tabs{display:flex;gap:6px;align-items:center;margin:18px 0 8px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 14px;cursor:pointer}
+.tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab .n{opacity:.6;margin-left:4px}
+.filter{font-size:13px;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:4px 10px;cursor:pointer}
+.spacer{flex:1}
+label.chk{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
+/* tasks */
+ul.tasks{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:12px}
+ul.tasks li{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-top:1px solid var(--line)}
+ul.tasks li:first-child{border-top:0}
+ul.tasks li.done .txt{text-decoration:line-through;color:var(--muted)}
+ul.tasks input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);flex:none;cursor:pointer}
+.txt{flex:1;min-width:0;overflow-wrap:anywhere}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:3px;font-size:12.5px;color:var(--muted)}
+.chip{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:0 6px;cursor:pointer}
+.who{border-radius:6px;padding:0 6px;background:var(--warm-soft);color:var(--warm)}
+.due.late{color:var(--late);font-weight:600}
+.due.soon{color:var(--warm);font-weight:600}
+.empty{padding:18px 14px;color:var(--muted)}
+/* projects */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.card.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.card h3{margin:0;font-size:16px;cursor:pointer}
+.card .sub{font-size:13px;color:var(--muted)}
+.stages{display:flex;gap:3px}
+.stages button{flex:1;height:8px;border:0;border-radius:3px;background:var(--stage);cursor:pointer;padding:0}
+.stages button.past{background:var(--accent);opacity:.55}
+.stages button.cur{background:var(--accent)}
+.stages.ms button{background:var(--stage)}
+.stages.ms button.done{background:var(--ok)}
+.stages.ms button.next{background:var(--ok);opacity:.3}
+.stagelbl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+.stagelbl b{color:var(--ink);font-weight:600}
+.bar{height:4px;background:var(--stage);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+details{font-size:14px}
+details summary{cursor:pointer;color:var(--muted);font-size:13px}
+details p{margin:6px 0 0;white-space:pre-wrap}
+/* settings */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.overlay.show{display:flex}
+.panel{background:var(--card);border-radius:14px;padding:20px;max-width:460px;width:100%;display:flex;flex-direction:column;gap:10px}
+.panel h3{margin:0 0 4px}
+.panel label{font-size:13px;color:var(--muted)}
+.panel input{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px}
+.panel .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:6px}
+.panel small{color:var(--muted);font-size:12.5px}
+@media (max-width:560px){h1{flex-basis:100%}}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Projects and tasks</h1>
+    <span class="status"><span class="dot" id="dot"></span><span id="statusTxt"></span></span>
+    <button class="btn" id="reloadBtn" title="Reload from the repository">Refresh</button>
+    <button class="btn" id="setBtn">Settings</button>
+  </header>
+
+  <div class="banner" id="demoBanner" hidden>Sample data. Changes are not saved. <a id="demoConnect">Connect your vault repository</a></div>
+
+  <form class="add" id="addForm" autocomplete="off">
+    <input type="text" id="addText" placeholder="New task, then Enter" aria-label="New task">
+    <span class="seg" id="ownerSeg"><button type="button" data-o="me" class="on">Me</button><button type="button" data-o="miky">Miky</button></span>
+    <select id="addProj" aria-label="Project"></select>
+    <input type="date" id="addDue" aria-label="Due date">
+    <button class="btn primary" type="submit">Add</button>
+  </form>
+
+  <div class="tabs">
+    <button class="tab on" data-t="me">Me<span class="n" id="nMe"></span></button>
+    <button class="tab" data-t="miky">Miky<span class="n" id="nCl"></span></button>
+    <button class="tab" data-t="all">All<span class="n" id="nAll"></span></button>
+    <span class="filter" id="projFilter" hidden></span>
+    <span class="spacer"></span>
+    <label class="chk"><input type="checkbox" id="showDone"> show done</label>
+  </div>
+  <ul class="tasks" id="taskList"></ul>
+
+  <div id="projWrap"></div>
+</div>
+
+<div class="overlay" id="settings">
+  <div class="panel">
+    <h3>Connect to vault</h3>
+    <label for="sRepo">Repository (owner/name)</label>
+    <input id="sRepo" placeholder="petrhrebenar/phd-vault">
+    <label for="sTok">GitHub token</label>
+    <input id="sTok" type="password" placeholder="github_pat_...">
+    <small>Fine-grained token limited to this repository, with Contents: Read and write. Stored only in this browser.</small>
+    <div class="row">
+      <button class="btn" id="sOff">Disconnect</button>
+      <button class="btn" id="sCancel">Close</button>
+      <button class="btn primary" id="sSave">Save and load</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ---------- konfigurace ---------- */
+const STAGES=[["napad","Idea"],["data","Data"],["analyza","Analysis"],["draft","Draft"],["submise","Submission"],["revize","Revision"],["publikovano","Published"]];
+const OTHER="Other", INBOX="Úkoly.md";
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
+
+/* ---------- pomocné ---------- */
+const $=id=>document.getElementById(id);
+const el=(tag,props={},...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(props)){if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v!==undefined&&v!==null&&v!==false)e.setAttribute(k,v===true?"":v)}for(const c of kids.flat())if(c!=null&&c!==false)e.append(c.nodeType?c:String(c));return e};
+const today=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+const daysTo=iso=>Math.round((new Date(iso+"T00:00")-new Date(today()+"T00:00"))/864e5);
+const fmtDate=iso=>{const y=+iso.slice(0,4);return new Date(iso+"T00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",...(y!==new Date().getFullYear()?{year:"numeric"}:{})})};
+const nfc=s=>s.normalize("NFC");
+let toastT;function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),3200)}
+const b64d=s=>new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,"")),c=>c.charCodeAt(0)));
+const b64e=s=>{const b=new TextEncoder().encode(s);let r="";for(let i=0;i<b.length;i+=32768)r+=String.fromCharCode.apply(null,b.subarray(i,i+32768));return btoa(r)};
+
+/* ---------- úložiště: GitHub ---------- */
+function githubBackend(repo,token){
+  const enc=p=>p.split("/").map(encodeURIComponent).join("/");
+  let branch="main";
+  async function api(path,opt={}){
+    const r=await fetch("https://api.github.com/repos/"+repo+path,{cache:"no-store",...opt,headers:{Authorization:"Bearer "+token,Accept:"application/vnd.github+json",...(opt.body?{"Content-Type":"application/json"}:{})}});
+    if(!r.ok){const e=new Error("GitHub "+r.status);e.status=r.status;throw e}
+    return r.json();
+  }
+  return{
+    label:repo,
+    async list(){const info=await api("");branch=info.default_branch;const t=await api("/git/trees/"+encodeURIComponent(branch)+"?recursive=1");return t.tree.filter(x=>x.type==="blob").map(x=>nfc(x.path))},
+    async get(path){try{const r=await api("/contents/"+enc(path)+"?ref="+encodeURIComponent(branch));return{content:b64d(r.content),sha:r.sha}}catch(e){if(e.status===404)return{content:"",sha:null};throw e}},
+    async put(path,content,sha,msg){const body={message:msg,content:b64e(content),branch};if(sha)body.sha=sha;const r=await api("/contents/"+enc(path),{method:"PUT",body:JSON.stringify(body)});return r.content.sha}
+  };
+}
+/* ---------- úložiště: demo v paměti ---------- */
+function demoBackend(){
+  const F={
+"Projekty/Sample paper A/Sample paper A.md":`---
+type: projekt
+faze: analyza
+deadline: 2026-11-30
+spoluautori: ["[[Jane Doe]]"]
+---
+# Sample paper A
+
+## Abstract
+Fictional project for the demo. Connect the repository to see real data.
+
+## Tasks
+- [ ] Circulate the methods draft to co-author 📅 2026-10-10
+- [ ] Add robustness checks 📅 2026-11-15
+- [ ] Read the methods chapter and send comments #miky 📅 2026-10-07
+- [x] Clean the data ✅ 2026-09-20
+`,
+"Projekty/Sample paper A/2026-09-24 meeting.md":`---
+type: schuzka
+datum: 2026-09-24
+---
+# Meeting 24 Sept
+## Tasks
+- [ ] Draft the annotation protocol 📅 2026-10-08
+- [ ] Share contact for the data custodian #miky 📅 2026-10-03
+`,
+"Projekty/Sample paper B/Sample paper B.md":`---
+type: projekt
+faze: draft
+deadline: 2026-10-31
+spoluautori: []
+---
+# Sample paper B
+
+## Abstract
+Fictional solo paper for the demo.
+
+## Tasks
+- [ ] Finish the results chapter 📅 2026-10-20
+- [ ] Approve the outline #miky 📅 2026-10-15
+- [x] Submit conference abstract ✅ 2026-09-18
+`,
+"Projekty/Sample grant/Sample grant.md":`---
+type: projekt
+druh: milniky
+title: "Sample: grant"
+---
+# Sample grant
+
+## Abstract
+Fictional project tracked by milestones instead of paper stages.
+
+## Milestones
+- [x] Draft ✅ 2026-09-15
+- [ ] Internal submission 📅 2026-10-31
+- [ ] Final submission 📅 2026-11-30
+
+## Tasks
+- [ ] Prepare the budget table 📅 2026-10-20
+`,
+"Projekty/Sample programme/Sample programme.md":`---
+type: projekt
+druh: milniky
+---
+# Sample programme
+
+## Tasks
+- [ ] Register for the doctoral seminar 📅 2026-10-05
+`};
+  const files=Object.fromEntries(Object.entries(F).map(([k,v])=>[k,{content:v,sha:"d"}]));
+  return{label:"demo",demo:true,async list(){return Object.keys(files)},async get(p){return files[p]?{...files[p]}:{content:"",sha:null}},async put(p,c){files[p]={content:c,sha:"d"};return"d"}};
+}
+
+/* ---------- parsování markdownu ---------- */
+const TASK=/^(\s*)[-*] \[([ xX])\] (.*)$/;
+const cleanVal=s=>s.trim().replace(/^["']|["']$/g,"").replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,a,b)=>b||a);
+function frontmatter(L){
+  const o={};if((L[0]||"").trim()!=="---")return o;
+  for(let i=1;i<L.length;i++){
+    if(L[i].trim()==="---"){o._end=i;break}
+    const m=L[i].match(/^([\w-]+):\s*(.*)$/);if(!m)continue;
+    let v=m[2].trim();
+    v=(v.startsWith("[")&&v.endsWith("]"))?v.slice(1,-1).split(",").map(cleanVal).filter(Boolean):cleanVal(v);
+    o[m[1]]=v;
+  }
+  return o;
+}
+function section(L,name){
+  const s=L.findIndex(l=>new RegExp("^##\\s+"+name+"\\s*$","i").test(l));if(s<0)return"";
+  const out=[];for(let i=s+1;i<L.length&&!/^#{1,2}\s/.test(L[i]);i++)out.push(L[i]);
+  return out.join("\n").trim();
+}
+function taskText(s){
+  return s.replace(/[📅⏳🛫✅➕]\s*\d{4}-\d{2}-\d{2}/gu,"").replace(/(^|\s)#miky\b/gi," ")
+          .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,a,b)=>b||a).replace(/\s+/g," ").trim();
+}
+function projectOf(path){const m=path.match(/^Projekty\/([^/]+)\//);return m?m[1]:OTHER}
+function relevant(path){return path.endsWith(".md")&&(path.startsWith("Projekty/")||path===INBOX)}
+function parseAll(files){
+  const projects={},tasks=[];
+  for(const[path,f]of Object.entries(files)){
+    const proj=projectOf(path),L=f.content.split("\n"),fm=frontmatter(L);
+    if(proj!==OTHER){
+      const p=projects[proj]||(projects[proj]={name:proj,path:null,fm:{},abstract:"",milestones:[]});
+      if(fm.type==="projekt"||path==="Projekty/"+proj+"/"+proj+".md"){p.path=path;p.fm=fm;p.abstract=section(L,"Abstrakt")||section(L,"Abstract")}
+    }
+    let sec="";
+    L.forEach((line,idx)=>{
+      const h=line.match(/^#{1,6}\s+(.*?)\s*$/);if(h){sec=h[1];return}
+      const m=line.match(TASK);if(!m)return;
+      const text=taskText(m[3]);if(!text)return;
+      const due=(m[3].match(/📅\s*(\d{4}-\d{2}-\d{2})/u)||[])[1]||null;
+      const doneOn=(m[3].match(/✅\s*(\d{4}-\d{2}-\d{2})/u)||[])[1]||null;
+      const t={path,idx,raw:line,done:m[2]!==" ",text,due,doneOn,owner:/(^|\s)#miky\b/i.test(m[3])?"miky":"me",project:proj};
+      if(/^(milníky|milestones)$/i.test(sec)){if(proj!==OTHER)projects[proj].milestones.push(t)}else tasks.push(t);
+    });
+  }
+  return{projects,tasks};
+}
+/* úpravy textu souborů */
+function toggleLine(line,done){
+  if(done)return line.replace(/\[[xX]\]/,"[ ]").replace(/\s*✅\s*\d{4}-\d{2}-\d{2}/u,"");
+  return line.replace("[ ]","[x]").replace(/\s+$/,"")+" ✅ "+today();
+}
+function insertTask(content,line){
+  const L=content?content.split("\n"):[];
+  const s=L.findIndex(l=>/^##\s+(Úkoly|Tasks)\s*$/.test(l));
+  if(s<0){while(L.length&&L[L.length-1].trim()==="")L.pop();L.push("","## Úkoly",line,"");return L.join("\n")}
+  let e=s+1;while(e<L.length&&!/^#{1,6}\s/.test(L[e]))e++;
+  let ins=e;while(ins>s+1&&L[ins-1].trim()==="")ins--;
+  if(ins>s+1&&/^\s*[-*] \[ \]\s*$/.test(L[ins-1])){L[ins-1]=line}else L.splice(ins,0,line);
+  return L.join("\n");
+}
+function setFront(content,key,val){
+  const L=content.split("\n");
+  if((L[0]||"").trim()!=="---")return"---\n"+key+": "+val+"\n---\n"+content;
+  let e=L.findIndex((l,i)=>i>0&&l.trim()==="---");if(e<0)e=1;
+  const k=L.findIndex((l,i)=>i>0&&i<e&&l.startsWith(key+":"));
+  if(k>=0)L[k]=key+": "+val;else L.splice(e,0,key+": "+val);
+  return L.join("\n");
+}
+
+/* ---------- stav ---------- */
+let backend=null,files={},model={projects:{},tasks:[]};
+const ui={tab:store.get("pm.tab")||"me",owner:"me",proj:null,showDone:false};
+let queue=Promise.resolve();
+function setStatus(state,txt){$("dot").className="dot "+(state||"");$("statusTxt").textContent=txt}
+
+async function load(){
+  const repo=store.get("pm.repo"),tok=store.get("pm.token");
+  backend=(repo&&tok)?githubBackend(repo,tok):demoBackend();
+  $("demoBanner").hidden=!backend.demo;
+  setStatus("busy","Loading…");
+  try{
+    const paths=(await backend.list()).filter(relevant);
+    const next={};let i=0;
+    async function worker(){while(i<paths.length){const p=paths[i++];next[p]=await backend.get(p)}}
+    await Promise.all(Array.from({length:Math.min(8,paths.length)},worker));
+    files=next;rebuild();
+    setStatus(backend.demo?"":"on",backend.demo?"Demo":backend.label);
+  }catch(e){
+    setStatus("","Loading failed");
+    toast(e.status===401?"Invalid token":e.status===404?"Repository not found or token has no access":"Could not load: "+e.message);
+  }
+}
+const dname=n=>(model.projects[n]&&model.projects[n].fm.title)||n;
+function rebuild(){model=parseAll(files);render()}
+
+/* zápis: znovu načte soubor, upraví, uloží; při kolizi načte vše znovu */
+function write(path,mutate,msg){
+  queue=queue.then(async()=>{
+    setStatus("busy","Saving…");
+    try{
+      const cur=await backend.get(path);
+      const next=mutate(cur.content);
+      if(next==null){toast("File changed in the meantime, reloading");await load();return}
+      const sha=await backend.put(path,next,cur.sha,msg);
+      files[path]={content:next,sha};rebuild();
+      setStatus(backend.demo?"":"on",backend.demo?"Demo":backend.label);
+    }catch(e){toast("Saving failed ("+(e.status||e.message)+"), reloading");await load()}
+  });
+  return queue;
+}
+function toggleTask(t){
+  // optimistická změna v UI
+  const L=files[t.path].content.split("\n");L[t.idx]=toggleLine(t.raw,t.done);
+  files[t.path]={...files[t.path],content:L.join("\n")};rebuild();
+  write(t.path,c=>{const A=c.split("\n");let i=A[t.idx]===t.raw?t.idx:A.indexOf(t.raw);if(i<0)return null;A[i]=toggleLine(A[i],t.done);return A.join("\n")},
+    (t.done?"Reopened: ":"Done: ")+t.text);
+}
+function addTask(text,owner,proj,due){
+  const line="- [ ] "+text.replace(/\s+/g," ").trim()+(owner==="miky"?" #miky":"")+(due?" 📅 "+due:"");
+  const p=model.projects[proj];
+  const path=proj===OTHER?INBOX:(p&&p.path)||("Projekty/"+proj+"/"+proj+".md");
+  files[path]={content:insertTask(files[path]?files[path].content:"",line),sha:files[path]&&files[path].sha};rebuild();
+  write(path,c=>insertTask(c,line),"New task: "+text);
+}
+function setStage(p,key){
+  if(!p.path){toast("Project has no index note");return}
+  files[p.path]={...files[p.path],content:setFront(files[p.path].content,"faze",key)};rebuild();
+  write(p.path,c=>setFront(c,"faze",key),"Stage "+p.name+": "+key);
+}
+
+/* ---------- vykreslení ---------- */
+function projectList(){
+  return Object.values(model.projects).sort((a,b)=>{
+    const pa=a.fm.faze==="publikovano",pb=b.fm.faze==="publikovano";if(pa!==pb)return pa-pb;
+    return (a.fm.deadline||"9999").localeCompare(b.fm.deadline||"9999")||a.name.localeCompare(b.name,"cs")});
+}
+function dueEl(iso){
+  const d=daysTo(iso);
+  return el("span",{class:"due"+(d<0?" late":d<=3?" soon":"")},(d<0?"overdue, ":d===0?"today, ":d===1?"tomorrow, ":"")+fmtDate(iso));
+}
+function render(){
+  const open=model.tasks.filter(t=>!t.done);
+  $("nMe").textContent=open.filter(t=>t.owner==="me").length;
+  $("nCl").textContent=open.filter(t=>t.owner==="miky").length;
+  $("nAll").textContent=open.length;
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.t===ui.tab));
+  const pf=$("projFilter");pf.hidden=!ui.proj;pf.textContent=ui.proj?dname(ui.proj)+"  ×":"";
+
+  // výběr projektu ve formuláři
+  const sel=$("addProj"),prev=sel.value;sel.replaceChildren();
+  for(const p of projectList())sel.append(el("option",{value:p.name},dname(p.name)));
+  sel.append(el("option",{value:OTHER},OTHER));
+  sel.value=ui.proj||prev||sel.options[0]?.value;
+
+  // úkoly
+  let list=model.tasks.filter(t=>(ui.tab==="all"||t.owner===ui.tab)&&(!ui.proj||t.project===ui.proj)&&(ui.showDone||!t.done));
+  list.sort((a,b)=>(a.done-b.done)||(a.done?(b.doneOn||"").localeCompare(a.doneOn||""):(a.due||"9999").localeCompare(b.due||"9999"))||a.project.localeCompare(b.project,"cs"));
+  const ul=$("taskList");ul.replaceChildren();
+  if(!list.length)ul.append(el("li",{class:"empty"},ui.tab==="miky"?"Miky has no open tasks.":"Nothing open."));
+  for(const t of list){
+    ul.append(el("li",{class:t.done?"done":""},
+      el("input",{type:"checkbox",checked:t.done,"aria-label":t.text,onchange:()=>toggleTask(t)}),
+      el("div",{class:"txt"},t.text,
+        el("div",{class:"meta"},
+          el("span",{class:"chip",onclick:()=>{ui.proj=t.project;render()}},dname(t.project)),
+          ui.tab==="all"&&t.owner==="miky"?el("span",{class:"who"},"Miky"):null,
+          t.due&&!t.done?dueEl(t.due):null,
+          t.done&&t.doneOn?el("span",{},"hotovo "+fmtDate(t.doneOn)):null))));
+  }
+
+  // projekty ve dvou skupinách
+  const wrap=$("projWrap");wrap.replaceChildren();
+  const all=projectList(),isMs=p=>p.fm.druh==="milniky";
+  const groups=[["Papers",all.filter(p=>!isMs(p))],["Study and projects",all.filter(isMs)]];
+  for(const[title,ps]of groups){
+    if(!ps.length)continue;
+    const g=el("div",{class:"grid"});
+    wrap.append(el("h2",{},title),g);
+    for(const p of ps)g.append(card(p));
+  }
+  if(!wrap.children.length)wrap.append(el("h2",{},"Projects"),el("div",{class:"empty"},"Nothing in Projekty/ yet."));
+}
+function card(p){
+  const pt=model.tasks.filter(t=>t.project===p.name),done=pt.filter(t=>t.done).length;
+  const co=[].concat(p.fm.spoluautori||[]).filter(Boolean);
+  const dl=p.fm.deadline&&/^\d{4}-\d{2}-\d{2}$/.test(p.fm.deadline)?p.fm.deadline:null;
+  let progress;
+  if(p.fm.druh==="milniky"){
+    const ms=p.milestones,nd=ms.filter(m=>m.done).length,next=ms.find(m=>!m.done);
+    progress=el("div",{},
+      ms.length?el("div",{class:"stages ms"},ms.map(m=>el("button",{class:m.done?"done":m===next?"next":"",title:m.text+(m.due?" ("+fmtDate(m.due)+")":""),"aria-label":"Milestone "+m.text,onclick:()=>toggleTask(m)}))):null,
+      ms.length?el("div",{class:"stagelbl"},el("span",{},next?el("b",{},"Next: "+next.text):el("b",{},"All done"),next&&next.due?" · ":"",next&&next.due?dueEl(next.due):""),el("span",{},nd+"/"+ms.length)):null);
+  }else{
+    const si=Math.max(0,STAGES.findIndex(s=>s[0]===p.fm.faze));
+    progress=el("div",{},
+      el("div",{class:"stages"},STAGES.map(([k,lbl],i)=>el("button",{class:i<si?"past":i===si?"cur":"",title:lbl,"aria-label":"Stage "+lbl,onclick:()=>setStage(p,k)}))),
+      el("div",{class:"stagelbl"},el("b",{},STAGES[si][1]),el("span",{},(si+1)+"/"+STAGES.length)));
+  }
+  return el("div",{class:"card"+(ui.proj===p.name?" sel":"")},
+    el("div",{},
+      el("h3",{title:"Filter tasks",onclick:()=>{ui.proj=ui.proj===p.name?null:p.name;render()}},dname(p.name)),
+      el("div",{class:"sub"},co.length?"with "+co.join(", "):"solo",dl?" · deadline ":"",dl?dueEl(dl):"")),
+    progress,
+    el("div",{},
+      el("div",{class:"bar"},el("i",{style:"width:"+(pt.length?Math.round(100*done/pt.length):0)+"%"})),
+      el("div",{class:"sub",style:"margin-top:4px"},pt.length?done+" of "+pt.length+" tasks done":"No tasks")),
+    p.abstract?el("details",{},el("summary",{},"Abstract"),el("p",{},p.abstract)):null);
+}
+
+/* ---------- ovládání ---------- */
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{ui.tab=b.dataset.t;store.set("pm.tab",ui.tab);if(ui.tab!=="all"){ui.owner=ui.tab;syncSeg()}render()});
+function syncSeg(){document.querySelectorAll("#ownerSeg button").forEach(b=>{b.classList.toggle("on",b.dataset.o===ui.owner);b.classList.toggle("cl",b.dataset.o==="miky")})}
+document.querySelectorAll("#ownerSeg button").forEach(b=>b.onclick=()=>{ui.owner=b.dataset.o;syncSeg()});
+$("projFilter").onclick=()=>{ui.proj=null;render()};
+$("showDone").onchange=e=>{ui.showDone=e.target.checked;render()};
+$("addForm").onsubmit=e=>{e.preventDefault();const t=$("addText").value.trim();if(!t)return;addTask(t,ui.owner,$("addProj").value,$("addDue").value);$("addText").value="";$("addDue").value=""};
+$("reloadBtn").onclick=()=>load();
+function openSettings(){$("sRepo").value=store.get("pm.repo")||"";$("sTok").value=store.get("pm.token")||"";$("settings").classList.add("show")}
+$("setBtn").onclick=openSettings;$("demoConnect").onclick=openSettings;
+$("sCancel").onclick=()=>$("settings").classList.remove("show");
+$("settings").onclick=e=>{if(e.target.id==="settings")$("settings").classList.remove("show")};
+$("sSave").onclick=()=>{const r=$("sRepo").value.trim().replace(/^https?:\/\/github\.com\//,"").replace(/\/$/,"");store.set("pm.repo",r||null);store.set("pm.token",$("sTok").value.trim()||null);$("settings").classList.remove("show");load()};
+$("sOff").onclick=()=>{store.set("pm.repo",null);store.set("pm.token",null);$("settings").classList.remove("show");load()};
+syncSeg();
+if(ui.tab!=="all")ui.owner=ui.tab,syncSeg();
+load();
+</script>
+</body>
+</html>
