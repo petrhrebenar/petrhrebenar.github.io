@@ -1,0 +1,29 @@
+<!-- CSS: vložit do <head> nebo do stávajícího stylesheetu -->
+<style>
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+  .lang-switch a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    color: inherit;
+  }
+  .lang-switch img {
+    width: 30px;
+    height: 20px;
+    display: block;
+  }
+  .lang-switch .sep {
+    margin: 0 0.2em;
+  }
+</style>
+
+<!-- HTML: vložit tam, kde má přepínač být (např. pod řádek Profiles) -->
+<p class="lang-switch">
+  <a href="/cs/" lang="cs"><img src="img/flag-cz.svg" alt="">CZ</a>
+  <span class="sep">|</span>
+  <a href="/" lang="en"><img src="img/flag-en.svg" alt="">EN</a>
+</p>

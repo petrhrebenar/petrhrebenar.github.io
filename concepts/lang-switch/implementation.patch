@@ -1,0 +1,170 @@
+From 012e472f933ea8cf9c55b7600260f99268d31067 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Petr=20Hreben=C3=A1r?= <hrebenap@prf.cuni.cz>
+Date: Wed, 30 Sep 2026 11:02:09 +0200
+Subject: [PATCH] Add CZ/EN language switch and temporary Czech home page
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0175xxtFcivW6EznDktkjzax
+---
+ cs/index.html   | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ img/flag-cz.svg |  7 +++++++
+ img/flag-en.svg | 19 +++++++++++++++++++
+ index.html      |  6 ++++++
+ style.css       | 19 +++++++++++++++++--
+ 5 files changed, 97 insertions(+), 2 deletions(-)
+ create mode 100644 cs/index.html
+ create mode 100644 img/flag-cz.svg
+ create mode 100644 img/flag-en.svg
+
+diff --git a/cs/index.html b/cs/index.html
+new file mode 100644
+index 0000000..66cff64
+--- /dev/null
++++ b/cs/index.html
+@@ -0,0 +1,48 @@
++<!doctype html>
++<html lang="cs">
++<head>
++  <meta charset="utf-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1">
++  <title>Petr Hrebenár</title>
++  <meta name="description" content="Petr Hrebenár, doktorand, Katedra ekonomie a empirických právních studií, Právnická fakulta Univerzity Karlovy.">
++  <link rel="icon" href="../icons/favicon.ico">
++  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
++  <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
++  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
++  <link rel="preload" href="../fonts/lmroman10-regular.woff2" as="font" type="font/woff2" crossorigin>
++  <link rel="stylesheet" href="../style.css">
++  <link rel="alternate" hreflang="en" href="https://petrhrebenar.github.io/">
++</head>
++<body>
++<main class="home">
++  <div class="card">
++    <p class="lang-switch">
++      <a href="/cs/" lang="cs" hreflang="cs" aria-current="page"><img src="/img/flag-cz.svg" alt="">CZ</a>
++      <span class="sep">|</span>
++      <a href="/" lang="en" hreflang="en"><img src="/img/flag-en.svg" alt="">EN</a>
++    </p>
++    <div class="name">Petr Hrebenár</div>
++    Doktorand<br>
++    Katedra ekonomie a empirických právních studií<br>
++    Právnická fakulta<br>
++    Univerzita Karlova
++    <div class="contact">
++      <span class="label">E-mail:</span>
++      <span><a href="mailto:hrebenap@prf.cuni.cz">hrebenap@prf.cuni.cz</a></span>
++      <span class="label">Adresa:</span>
++      <span>nám. Curieových 7<br>116 40 Praha 1<br>Česká republika</span>
++    </div>
++    <div class="profiles">
++      Profily:
++      <a href="https://scholar.google.com/citations?user=h7B96EwAAAAJ" target="_blank" rel="noopener">Google Scholar</a> |
++      <a href="https://orcid.org/0000-0002-8689-0088" target="_blank" rel="noopener">ORCID</a> |
++      <a href="https://www.researchgate.net/profile/Petr-Hrebenar" target="_blank" rel="noopener">ResearchGate</a>
++    </div>
++    <div class="link-row">
++      <a href="../research.html">Výzkum</a>
++      <a href="../cv.pdf" target="_blank" rel="noopener">Životopis</a>
++    </div>
++  </div>
++</main>
++</body>
++</html>
+diff --git a/img/flag-cz.svg b/img/flag-cz.svg
+new file mode 100644
+index 0000000..3e3938d
+--- /dev/null
++++ b/img/flag-cz.svg
+@@ -0,0 +1,7 @@
++<svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 60 40" role="img" aria-label="Čeština">
++  <rect width="60" height="20" fill="#FFFFFF"/>
++  <rect y="20" width="60" height="20" fill="#D7141A"/>
++  <path d="M0 0L30 20L0 40Z" fill="#11457E"/>
++  <path d="M0 0L30 20L0 40M30 20H60" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linejoin="round"/>
++  <rect x="0.5" y="0.5" width="59" height="39" fill="none" stroke="#1a1a1a" stroke-width="1"/>
++</svg>
+diff --git a/img/flag-en.svg b/img/flag-en.svg
+new file mode 100644
+index 0000000..38b98cd
+--- /dev/null
++++ b/img/flag-en.svg
+@@ -0,0 +1,19 @@
++<svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 60 40" role="img" aria-label="English">
++  <clipPath id="uk-c"><path d="M0 0v40h60V0z"/></clipPath>
++  <clipPath id="uk-t"><path d="M30 20h30v20zv20H0zH0V0zV0h30z"/></clipPath>
++  <g clip-path="url(#uk-c)">
++    <path d="M0 0v40h60V0z" fill="#012169"/>
++    <path d="M0 0L60 40M60 0L0 40" stroke="#1a1a1a" stroke-width="10"/>
++    <path d="M0 0L60 40M60 0L0 40" stroke="#FFFFFF" stroke-width="8"/>
++    <g clip-path="url(#uk-t)">
++      <path d="M0 0L60 40M60 0L0 40" stroke="#1a1a1a" stroke-width="7.33"/>
++      <path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="5.33"/>
++    </g>
++    <path d="M0 0L60 40M60 0L0 40" stroke="#1a1a1a" stroke-width="1"/>
++    <path d="M30 0v40M0 20h60" stroke="#1a1a1a" stroke-width="15.33"/>
++    <path d="M30 0v40M0 20h60" stroke="#FFFFFF" stroke-width="13.33"/>
++    <path d="M30 0v40M0 20h60" stroke="#1a1a1a" stroke-width="10"/>
++    <path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="8"/>
++  </g>
++  <rect x="0.5" y="0.5" width="59" height="39" fill="none" stroke="#1a1a1a" stroke-width="1"/>
++</svg>
+diff --git a/index.html b/index.html
+index a798790..99ce005 100644
+--- a/index.html
++++ b/index.html
+@@ -11,10 +11,16 @@
+   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+   <link rel="preload" href="fonts/lmroman10-regular.woff2" as="font" type="font/woff2" crossorigin>
+   <link rel="stylesheet" href="style.css">
++  <link rel="alternate" hreflang="cs" href="https://petrhrebenar.github.io/cs/">
+ </head>
+ <body>
+ <main class="home">
+   <div class="card">
++    <p class="lang-switch">
++      <a href="/cs/" lang="cs" hreflang="cs"><img src="/img/flag-cz.svg" alt="">CZ</a>
++      <span class="sep">|</span>
++      <a href="/" lang="en" hreflang="en" aria-current="page"><img src="/img/flag-en.svg" alt="">EN</a>
++    </p>
+     <div class="name">Petr Hrebenár</div>
+     PhD Candidate<br>
+     Department of Economics and Empirical Legal Studies<br>
+diff --git a/style.css b/style.css
+index f3b84d8..e1e934b 100644
+--- a/style.css
++++ b/style.css
+@@ -20,10 +20,10 @@ a { color: #000; }
+   display: flex;
+   align-items: center;
+   justify-content: center;
+-  padding: 16px;
++  padding: 8em 16px; /* keeps room above the card for the language switch */
+   box-sizing: border-box;
+ }
+-.card { max-width: 34em; }
++.card { width: 24.2em; max-width: 100%; position: relative; }
+ .card .name { font-weight: 700; font-size: 1.15em; margin-bottom: 1em; }
+ .card .contact { display: grid; grid-template-columns: max-content 1fr; column-gap: 0.8em; margin-top: 0.3em; }
+ .card .profiles { margin-top: 1em; }
+@@ -43,3 +43,18 @@ h2 { font-size: 1em; margin: 1.6em 0 0.4em; }
+   .card .contact .label { margin-top: 0.4em; }
+ }
+ .nw { white-space: nowrap; }
++
++/* Language switch: top right of the home card, about five name gaps above the name */
++.lang-switch {
++  position: absolute;
++  right: 0;
++  bottom: calc(100% + 5.75em);
++  margin: 0;
++  display: inline-flex;
++  align-items: center;
++  gap: 0.4em;
++}
++.lang-switch a { display: inline-flex; align-items: center; gap: 0.35em; color: inherit; }
++.lang-switch a[aria-current="page"] { text-decoration: none; }
++.lang-switch img { width: 30px; height: 20px; display: block; }
++.lang-switch .sep { margin: 0 0.2em; }
+-- 
+2.43.0
+
