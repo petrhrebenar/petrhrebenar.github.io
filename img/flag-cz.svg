@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 60 40" role="img" aria-label="Čeština">
-  <rect width="60" height="20" fill="#FFFFFF"/>
-  <rect y="20" width="60" height="20" fill="#D7141A"/>
-  <path d="M0 0L30 20L0 40Z" fill="#11457E"/>
-  <path d="M0 0L30 20L0 40M30 20H60" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linejoin="round"/>
-  <rect x="0.5" y="0.5" width="59" height="39" fill="none" stroke="#1a1a1a" stroke-width="1"/>
-</svg>

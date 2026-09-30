@@ -20,10 +20,10 @@ a { color: #000; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8em 16px; /* keeps room above the card for the language switch */
+  padding: 16px;
   box-sizing: border-box;
 }
-.card { width: 24.2em; max-width: 100%; position: relative; }
+.card { max-width: 34em; }
 .card .name { font-weight: 700; font-size: 1.15em; margin-bottom: 1em; }
 .card .contact { display: grid; grid-template-columns: max-content 1fr; column-gap: 0.8em; margin-top: 0.3em; }
 .card .profiles { margin-top: 1em; }
@@ -43,18 +43,3 @@ h2 { font-size: 1em; margin: 1.6em 0 0.4em; }
   .card .contact .label { margin-top: 0.4em; }
 }
 .nw { white-space: nowrap; }
-
-/* Language switch: top right of the home card, about five name gaps above the name */
-.lang-switch {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 5.75em);
-  margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-}
-.lang-switch a { display: inline-flex; align-items: center; gap: 0.35em; color: inherit; }
-.lang-switch a[aria-current="page"] { text-decoration: none; }
-.lang-switch img { width: 30px; height: 20px; display: block; }
-.lang-switch .sep { margin: 0 0.2em; }
