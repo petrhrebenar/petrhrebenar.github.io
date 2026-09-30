@@ -59,7 +59,7 @@ ul.tasks input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color
 .due.soon{color:var(--warm);font-weight:600}
 .empty{padding:18px 14px;color:var(--muted)}
 /* projects */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:0;padding:14px;display:flex;flex-direction:column;gap:10px}
 .card.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .card h3{margin:0;font-size:16px;cursor:pointer}
@@ -87,7 +87,7 @@ details p{margin:6px 0 0;white-space:pre-wrap}
 .panel input{width:100%;border:1px solid var(--ink);border-radius:0;background:var(--bg);padding:8px}
 .panel .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:6px}
 .panel small{color:var(--muted);font-size:12.5px}
-@media (max-width:560px){h1{flex-basis:100%}}
+@media (max-width:560px){h1{flex-basis:100%}.grid{grid-template-columns:1fr}}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:0;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
 .toast.show{opacity:1}
 </style>
