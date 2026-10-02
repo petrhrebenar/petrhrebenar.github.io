@@ -77,6 +77,8 @@ ul.tasks input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color
 .stagelbl b{color:var(--ink);font-weight:600}
 .bar{height:4px;background:var(--stage);border-radius:0;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--ok)}
+.plinks{font-size:13px;color:var(--muted)}
+.plinks a{color:var(--accent);text-decoration:underline;cursor:pointer}
 details{font-size:14px}
 details summary{cursor:pointer;color:var(--muted);font-size:13px}
 details p{margin:6px 0 0;white-space:pre-wrap}
@@ -176,6 +178,7 @@ function githubBackend(repo,token){
     label:repo,
     async list(){const info=await api("");branch=info.default_branch;const t=await api("/git/trees/"+encodeURIComponent(branch)+"?recursive=1");return t.tree.filter(x=>x.type==="blob").map(x=>nfc(x.path))},
     async get(path){try{const r=await api("/contents/"+enc(path)+"?ref="+encodeURIComponent(branch));return{content:b64d(r.content),sha:r.sha}}catch(e){if(e.status===404)return{content:"",sha:null};throw e}},
+    async pdf(id){const r=await fetch("https://api.github.com/repos/"+repo+"/contents/"+id+".pdf?ref=drafts",{cache:"no-store",headers:{Authorization:"Bearer "+token,Accept:"application/vnd.github.raw+json"}});if(!r.ok){const e=new Error("GitHub "+r.status);e.status=r.status;throw e}return new Blob([await r.arrayBuffer()],{type:"application/pdf"})},
     async put(path,content,sha,msg){const body={message:msg,content:b64e(content),branch};if(sha)body.sha=sha;const r=await api("/contents/"+enc(path),{method:"PUT",body:JSON.stringify(body)});return r.content.sha}
   };
 }
@@ -385,6 +388,19 @@ function setStage(p,key){
   write(p.path,c=>setFront(c,"faze",key),"Stage "+p.name+": "+key);
 }
 
+/* draft PDF sestavený z Overleafu (větev drafts ve vaultu) */
+async function openPdf(p){
+  if(!backend.pdf){toast("Draft PDFs are not available in the demo");return}
+  const w=window.open("about:blank","_blank");
+  try{
+    const url=URL.createObjectURL(await backend.pdf(p.fm.overleaf));
+    if(w)w.location.href=url;else toast("Allow pop-ups for this page to open the PDF");
+  }catch(e){
+    if(w)w.close();
+    toast(e.status===404?"No PDF yet. The next build runs within the hour.":"Could not load the PDF ("+(e.status||e.message)+")");
+  }
+}
+
 /* ---------- vykreslení ---------- */
 function projectList(){
   return Object.values(model.projects).sort((a,b)=>{
@@ -461,6 +477,9 @@ function card(p){
     el("div",{},
       el("div",{class:"bar"},el("i",{style:"width:"+(pt.length?Math.round(100*done/pt.length):0)+"%"})),
       el("div",{class:"sub",style:"margin-top:4px"},pt.length?done+" of "+pt.length+" tasks done":"No tasks")),
+    /^[0-9a-f]{24}$/.test(p.fm.overleaf||"")?el("div",{class:"plinks"},
+      el("a",{onclick:()=>openPdf(p)},"Draft PDF")," · ",
+      el("a",{href:"https://www.overleaf.com/project/"+p.fm.overleaf,target:"_blank",rel:"noopener"},"Overleaf")):null,
     p.abstract?el("details",{},el("summary",{},"Abstract"),el("p",{},p.abstract)):null);
 }
 
