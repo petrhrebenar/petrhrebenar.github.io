@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 60 40" role="img" aria-label="English">
+  <clipPath id="uk-c"><path d="M0 0v40h60V0z"/></clipPath>
+  <clipPath id="uk-t"><path d="M30 20h30v20zv20H0zH0V0zV0h30z"/></clipPath>
+  <g clip-path="url(#uk-c)">
+    <path d="M0 0v40h60V0z" fill="#012169"/>
+    <path d="M0 0L60 40M60 0L0 40" stroke="#1a1a1a" stroke-width="10"/>
+    <path d="M0 0L60 40M60 0L0 40" stroke="#FFFFFF" stroke-width="8"/>
+    <g clip-path="url(#uk-t)">
+      <path d="M0 0L60 40M60 0L0 40" stroke="#1a1a1a" stroke-width="7.33"/>
+      <path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="5.33"/>
+    </g>
+    <path d="M0 0L60 40M60 0L0 40" stroke="#1a1a1a" stroke-width="1"/>
+    <path d="M30 0v40M0 20h60" stroke="#1a1a1a" stroke-width="15.33"/>
+    <path d="M30 0v40M0 20h60" stroke="#FFFFFF" stroke-width="13.33"/>
+    <path d="M30 0v40M0 20h60" stroke="#1a1a1a" stroke-width="10"/>
+    <path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="8"/>
+  </g>
+  <rect x="0.5" y="0.5" width="59" height="39" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+</svg>

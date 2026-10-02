@@ -13,30 +13,48 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="home">
-  <div class="card">
-    <div class="name">Petr Hrebenár</div>
+<header class="site-header">
+  <div class="bar">
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener">CV</a></li>
+      </ul>
+    </nav>
+    <!-- Language switch: placeholder, not functional yet -->
+    <p class="lang-switch" title="Czech version in preparation">
+      <span lang="cs"><img src="img/flag-cz.svg" alt="">CZ</span>
+      <span class="sep">|</span>
+      <span lang="en"><img src="img/flag-en.svg" alt="">EN</span>
+    </p>
+  </div>
+</header>
+<main class="page">
+  <h1 class="name">Petr Hrebenár</h1>
+  <p class="lead">
     PhD Candidate<br>
     Department of Economics and Empirical Legal Studies<br>
     Faculty of Law<br>
     Charles University
-    <div class="contact">
-      <span class="label">Email:</span>
-      <span><a href="mailto:hrebenap@prf.cuni.cz">hrebenap@prf.cuni.cz</a></span>
-      <span class="label">Address:</span>
-      <span>nám. Curieových 7<br>116 40 Prague<br>Czech Republic</span>
+  </p>
+  <dl class="cells">
+    <div>
+      <dt class="label">Email</dt>
+      <dd><a href="mailto:hrebenap@prf.cuni.cz">hrebenap@prf.cuni.cz</a></dd>
     </div>
-    <div class="profiles">
-      Profiles:
-      <a href="https://scholar.google.com/citations?user=h7B96EwAAAAJ" target="_blank" rel="noopener">Google Scholar</a> |
-      <a href="https://orcid.org/0000-0002-8689-0088" target="_blank" rel="noopener">ORCID</a> |
-      <a href="https://www.researchgate.net/profile/Petr-Hrebenar" target="_blank" rel="noopener">ResearchGate</a>
+    <div>
+      <dt class="label">Address</dt>
+      <dd>nám. Curieových 7<br>116 40 Prague<br>Czech Republic</dd>
     </div>
-    <div class="link-row">
-      <a href="research.html">Research</a>
-      <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+    <div>
+      <dt class="label">Profiles</dt>
+      <dd>
+        <a href="https://scholar.google.com/citations?user=h7B96EwAAAAJ" target="_blank" rel="noopener">Google Scholar</a><br>
+        <a href="https://orcid.org/0000-0002-8689-0088" target="_blank" rel="noopener">ORCID</a><br>
+        <a href="https://www.researchgate.net/profile/Petr-Hrebenar" target="_blank" rel="noopener">ResearchGate</a>
+      </dd>
     </div>
-  </div>
+  </dl>
 </main>
 </body>
 </html>
