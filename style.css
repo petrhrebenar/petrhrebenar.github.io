@@ -14,7 +14,7 @@ body {
 }
 a { color: #000; }
 
-/* Layout: top bar with a rule, left-aligned page column, ruled cells */
+/* Layout: top bar with a rule, left-aligned page column */
 .site-header { border-bottom: 1px solid #000; }
 .bar, .page { max-width: 46em; margin: 0 auto; padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
 .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3em 1.6em; padding-top: 0.9em; padding-bottom: 0.55em; }
@@ -26,14 +26,14 @@ a { color: #000; }
 .lang-switch .sep { margin: 0 0.2em; }
 
 .page { padding-top: 2.2em; padding-bottom: 3em; }
-.label { font-size: 0.68em; letter-spacing: 0.09em; text-transform: uppercase; color: #555; margin: 0; }
 
 /* Home page */
 .name { font-size: 1.9em; line-height: 1.15; font-weight: 700; margin: 0; }
 .lead { margin: 0.9em 0 0; max-width: 34em; }
-.cells { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 1.8em 0 0; padding: 1px 0 0 1px; }
-.cells > div { border: 1px solid #000; margin: -1px 0 0 -1px; padding: 0.7em 0.8em 0.8em; }
-.cells dd { margin: 0.3em 0 0; overflow-wrap: anywhere; hyphens: none; -webkit-hyphens: none; }
+.contacts { margin: 1.6em 0 0; max-width: 26em; }
+.contacts > div { display: grid; grid-template-columns: 5.2em 1fr; column-gap: 0.8em; padding: 0.55em 0; }
+.contacts > div + div { border-top: 1px solid #000; }
+.contacts dd { margin: 0; overflow-wrap: anywhere; hyphens: none; -webkit-hyphens: none; }
 
 /* Inner pages */
 .back { margin-bottom: 1.2em; }
@@ -44,6 +44,5 @@ h2 { font-size: 1.15em; margin: 1.8em 0 0.4em; }
 
 @media (max-width: 700px) {
   body { font-size: 18px; }
-  .cells { grid-template-columns: 1fr; }
 }
 .nw { white-space: nowrap; }
