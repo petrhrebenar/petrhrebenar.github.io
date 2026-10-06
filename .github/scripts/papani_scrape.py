@@ -7,11 +7,16 @@ Reads every source in SOURCES, converts what it finds into one JSON file
 `papani-data` branch.
 
 Adding a restaurant: append an entry to SOURCES. Without a `parser` it is
-shown as a plain link. A parser receives the page HTML and returns a dict
+shown as a plain link. An optional `note` is shown under the name.
+
+transcripts.json in the output directory holds text versions of the menu
+images, keyed by image path ("img/<id>-<hash>.<ext>"). It is written by a
+separate scheduled task, not by this script; this script only keeps it and
+drops entries whose image is gone. A parser receives the page HTML and returns a dict
 with any of:
   days:   {"YYYY-MM-DD": [section, ...]}      menu for specific days
   week:   {"from": iso, "to": iso, "sections": [section, ...]}  one menu for the whole week
-  images: [{"url": absolute_url, "date": iso or None}]          menu published as a picture
+  images: [{"url": absolute_url, "try": [urls to download from], "date": iso or None}]  menu as a picture
 where section = {"name": str, "items": [{"name": str, "price": str}], "extra": bool}.
 """
 import argparse
@@ -64,12 +69,12 @@ def nearest_year(day, month, today):
     return best
 
 
-def fetch(url, binary=False, tries=3):
+def fetch(url, binary=False, tries=2):
     last = None
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "cs"})
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 body = r.read()
                 if binary:
                     return body, r.headers.get_content_type()
@@ -174,9 +179,13 @@ def parse_lacasablu(html, ctx):
     for u in urls:
         parts = urllib.parse.urlsplit(u)
         m = re.search(r"/uploads/(\d{4})/(\d{2})/", parts.path)
-        # Photon CDN: ask for a sensible width instead of the 2250 px original
-        small = urllib.parse.urlunsplit(parts._replace(query="w=1400&ssl=1")) if "wp.com" in parts.netloc else u
-        images.append({"url": small, "month": f"{m.group(1)}-{m.group(2)}" if m else None})
+        tries = [u]
+        if "wp.com" in parts.netloc:
+            # Photon CDN: prefer a sensible width over the 2250 px original,
+            # then the image as linked, then the file on the site itself.
+            tries = [urllib.parse.urlunsplit(parts._replace(query="w=1400&ssl=1")), u,
+                     "https://" + parts.path.lstrip("/")]
+        images.append({"url": u, "try": tries, "month": f"{m.group(1)}-{m.group(2)}" if m else None})
     return {"images": images}
 
 
@@ -203,7 +212,8 @@ def parse_bozskalahvice(html, ctx):
 SOURCES = [
     {"id": "kolkovna", "name": "Kolkovna (V Kolkovně)", "url": "https://vkolkovne.kolkovna.cz/", "parser": parse_kolkovna},
     {"id": "castello", "name": "Pizzeria Castello", "url": "https://pizzeriacastello.cz/", "parser": parse_castello},
-    {"id": "lokal", "name": "Lokál Dlouhááá", "url": "https://lokal-dlouha.ambi.cz/menu/denni-menu", "parser": parse_lokal},
+    {"id": "lokal", "name": "Lokál Dlouhááá", "url": "https://lokal-dlouha.ambi.cz/menu/denni-menu", "parser": parse_lokal,
+     "note": "jeden student má slevu 20 % na až 2 jídla"},
     {"id": "lacasablu", "name": "La Casa Blů", "url": "https://lacasablu.cz/", "parser": parse_lacasablu},
     {"id": "bozskalahvice", "name": "Božská lahvice", "url": "https://www.bozskalahvice.cz/", "parser": parse_bozskalahvice},
     # No parser: these sites do not allow automated reading, so they stay links.
@@ -222,9 +232,10 @@ def save_images(src, images, out, offline):
         for k in ("date", "month"):
             if im.get(k):
                 entry[k] = im[k]
-        if not offline:
+        errors = []
+        for url in ([] if offline else im.get("try", [im["url"]])):
             try:
-                body, ctype = fetch(im["url"], binary=True)
+                body, ctype = fetch(url, binary=True, tries=2)
                 ext = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp"}.get(ctype)
                 if not ext:
                     raise ValueError(f"unexpected content type {ctype}")
@@ -232,8 +243,12 @@ def save_images(src, images, out, offline):
                 (out / "img").mkdir(parents=True, exist_ok=True)
                 (out / "img" / name).write_bytes(body)
                 entry["src"] = f"img/{name}"
-            except Exception as e:  # noqa: BLE001 - fall back to the restaurant's own URL
-                print(f"::warning::{src['id']}: image not saved ({e}); linking the original")
+                break
+            except Exception as e:  # noqa: BLE001 - try the next candidate
+                errors.append(f"{urllib.parse.urlsplit(url).netloc}: {e}")
+        else:
+            if errors:  # nothing worked: the page links the restaurant's own URL
+                print(f"::warning::{src['id']}: image not saved ({'; '.join(errors)}); linking the original")
         saved.append(entry)
     return saved
 
@@ -255,6 +270,8 @@ def build(today, out, fixtures=None):
     restaurants, failed, parsed = [], 0, 0
     for src in SOURCES:
         entry = {"id": src["id"], "name": src["name"], "url": src["url"]}
+        if src.get("note"):
+            entry["note"] = src["note"]
         if not src["parser"]:
             restaurants.append({**entry, "status": "link"})
             continue
@@ -268,7 +285,7 @@ def build(today, out, fixtures=None):
         except Exception as e:  # noqa: BLE001 - one broken site must not stop the others
             failed += 1
             print(f"::warning::{src['id']}: {type(e).__name__}: {e}")
-            keep = {k: v for k, v in prev.get(src["id"], {}).items() if k in ("days", "week", "images")}
+            keep = {k: v for k, v in prev.get(src["id"], {}).items() if k in ("days", "week", "images", "checked")}
             restaurants.append({**entry, **keep, "status": "error", "error": f"{type(e).__name__}: {e}"[:200]})
             continue
 
@@ -294,7 +311,7 @@ def build(today, out, fixtures=None):
             months = [i["month"] for i in entry["images"] if i.get("month")]
             if not entry["images"] or (dates and max(dates) < monday.isoformat()) or (months and max(months) < last_month):
                 status = "stale"
-        restaurants.append({**entry, "status": status})
+        restaurants.append({**entry, "status": status, "checked": now})
         print(f"{src['id']}: {status}")
 
     # drop images no longer referenced
@@ -303,6 +320,15 @@ def build(today, out, fixtures=None):
         for f in (out / "img").iterdir():
             if f"img/{f.name}" not in used:
                 f.unlink()
+
+    tfile = out / "transcripts.json"
+    try:
+        tr = json.loads(tfile.read_text(encoding="utf-8"))
+        kept = {k: v for k, v in tr.items() if k in used}
+        if kept != tr:
+            tfile.write_text(json.dumps(kept, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    except (OSError, ValueError, AttributeError):
+        pass
 
     data = {"updated": now, "week": monday.isoformat(), "restaurants": restaurants}
     out.mkdir(parents=True, exist_ok=True)

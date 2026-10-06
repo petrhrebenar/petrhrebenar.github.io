@@ -38,14 +38,18 @@ button{font:inherit;color:inherit}
 .tab .n{opacity:.6;margin-left:6px}
 .tab.today:not(.on){box-shadow:inset 0 -3px 0 var(--accent)}
 /* cards */
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:1px 0 0 1px;align-items:stretch}
-.card{background:var(--card);border:1px solid var(--line);margin:-1px 0 0 -1px;border-radius:0;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:0;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
 .card.wide{grid-column:1/-1}
 .card h3{margin:0;font-size:18px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
 .card h3 .name{flex:1}
 .card h3 a{font-size:13px;font-weight:400;color:var(--accent)}
 .sub{font-size:13px;color:var(--muted)}
 .sub.warn{color:var(--warm)} .sub.err{color:var(--late)}
+.sub a{color:var(--accent)}
+.card h3+.sub{margin-top:-6px}
+.part{display:flex;flex-direction:column;gap:10px}
+.part+.part{border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
 .sec{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:4px 0 -4px}
 ul.menu{list-style:none;margin:0;padding:0}
 ul.menu li{display:flex;gap:14px;align-items:baseline;padding:5px 0;border-top:1px solid var(--rule)}
@@ -96,20 +100,22 @@ const today=()=>iso(new Date());
 const addDays=(s,n)=>{const d=new Date(s+"T00:00");d.setDate(d.getDate()+n);return iso(d)};
 const dm=s=>{const d=new Date(s+"T00:00");return d.getDate()+". "+(d.getMonth()+1)+"."};
 const mondayOf=s=>{const d=new Date(s+"T00:00");return addDays(s,-((d.getDay()+6)%7))};
+const when=s=>{const d=new Date(s);return DAYS_LONG[(d.getDay()+6)%7]+" "+dm(iso(d))+" "+d.toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"})};
 const safeUrl=u=>/^https:\/\//.test(u||"")?u:null;
 const imgUrl=s=>/^img\/[\w.-]+$/.test(s||"")?DATA+s:safeUrl(s);
 
-let data=null, day=null;
+let data=null, tr={}, day=null;
 
 function status(cls,txt){$("dot").className="dot"+(cls?" "+cls:"");$("statusTxt").textContent=txt}
 function banner(txt,warn){const b=$("banner");b.hidden=!txt;b.textContent=txt||"";b.className="banner"+(warn?" warn":"")}
+const getJson=async f=>{const r=await fetch(DATA+f+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json()};
 
 async function load(){
   status("busy","načítám");
   try{
-    const r=await fetch(DATA+"menus.json?t="+Date.now(),{cache:"no-store"});
-    if(!r.ok)throw new Error("HTTP "+r.status);
-    data=await r.json();
+    /* transcripts.json (text versions of menu images) is optional */
+    [data,tr]=await Promise.all([getJson("menus.json"),getJson("transcripts.json").catch(()=>({}))]);
+    if(!tr||typeof tr!=="object")tr={};
   }catch(e){
     data=null;status("","bez dat");
     banner("Data se nepodařilo načíst ("+e.message+"). Větev papani-data vznikne při prvním běhu workflow „papani“ v záložce Actions.",true);
@@ -119,7 +125,7 @@ async function load(){
   const wd=(new Date(t+"T00:00").getDay()+6)%7;
   if(!day||day<data.week||day>addDays(data.week,4))day=data.week===cur?addDays(data.week,Math.min(wd,4)):data.week;
   const up=new Date(data.updated), fresh=iso(up)===t;
-  status(fresh?"on":"busy","aktualizováno "+DAYS_LONG[(up.getDay()+6)%7]+" "+dm(iso(up))+" "+up.toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"}));
+  status(fresh?"on":"busy","aktualizováno "+when(data.updated));
   banner(data.week!==cur?"Zobrazená data jsou z týdne "+dm(data.week)+" až "+dm(addDays(data.week,4))+" Nová se načítají ve všední dny dopoledne.":"",true);
   render();
 }
@@ -135,35 +141,40 @@ function sections(list){
   return out;
 }
 
-function head(r){return el("h3",{},el("span",{class:"name"},r.name),safeUrl(r.url)?el("a",{href:r.url,target:"_blank",rel:"noopener"},"web"):null)}
-
-function textCard(r){
-  const c=el("div",{class:"card"},head(r));
-  if(r.status==="error")c.append(el("div",{class:"sub err"},"Web se dnes nepodařilo přečíst."+(r.days||r.week?" Níže je poslední známý stav.":"")));
-  if(r.week){
-    const w=r.week;
-    c.append(el("div",{class:"sub"},"týdenní menu"+(w.from?" "+dm(w.from)+" až "+dm(w.to):"")),...sections(w.sections));
-  }else if(r.days){
-    const d=r.days[day];
-    if(d)c.append(...sections(d));
-    else{
-      const known=Object.keys(r.days).length;
-      c.append(el("div",{class:"empty"},day>today()?"Menu na tento den ještě není zveřejněné.":known?"Na tento den se menu nezachytilo.":"Menu na tento týden zatím na webu není."));
-    }
-  }else if(r.status==="stale"){
-    c.append(el("div",{class:"empty"},"Web zatím ukazuje starší menu"+(r.seen?" ("+dm(r.seen.from)+" až "+dm(r.seen.to)+")":"")+"."));
+/* One menu: {title?, note?, days?: {iso: sections}, week?: {label?, from?, to?, sections}}.
+   Used both for a restaurant read from HTML and for the text version of a menu image. */
+function menu(m){
+  const out=[];
+  if(m.title)out.push(el("div",{class:"sub"},m.title));
+  if(m.days){
+    const d=m.days[day];
+    if(d&&d.length)out.push(...sections(d));
+    else out.push(el("div",{class:"empty"},day>today()&&!m.fromImage?"Menu na tento den ještě není zveřejněné.":Object.keys(m.days).length?"Na tento den v menu nic není.":"Menu na tento týden zatím na webu není."));
   }
-  return c;
+  if(m.week&&(m.week.sections||[]).length){
+    const w=m.week;
+    out.push(el("div",{class:"sub"},(w.label||"týdenní menu")+(w.from?" "+dm(w.from)+" až "+dm(w.to):"")),...sections(w.sections));
+  }
+  if(m.note)out.push(el("div",{class:"sub"},m.note));
+  return out;
 }
 
-function picCard(r){
-  const pics=(r.images||[]).map(i=>({src:imgUrl(i.src),full:safeUrl(i.orig)||imgUrl(i.src),i})).filter(p=>p.src);
-  const c=el("div",{class:"card wide"},head(r));
-  if(r.status==="error")c.append(el("div",{class:"sub err"},"Web se dnes nepodařilo přečíst."+(pics.length?" Níže je poslední známý stav.":"")));
-  else if(r.status==="stale")c.append(el("div",{class:"sub warn"},pics.length?"Obrázek je starší než tento týden, na webu možná ještě není nové menu.":"Na webu se nenašel žádný obrázek s menu."));
-  else c.append(el("div",{class:"sub"},"menu je na webu jako obrázek, kliknutím se otevře v plné velikosti"));
-  if(pics.length)c.append(el("div",{class:"pics"+(pics.length===1?" one":"")},pics.map(p=>el("a",{href:p.full,target:"_blank",rel:"noopener"},el("img",{src:p.src,alt:"Menu "+r.name,loading:"lazy"})))));
-  return c;
+function head(r){return [el("h3",{},el("span",{class:"name"},r.name),safeUrl(r.url)?el("a",{href:r.url,target:"_blank",rel:"noopener"},"web"):null),r.note?el("div",{class:"sub"},r.note):null]}
+
+function card(r){
+  const pics=(r.images||[]).map(i=>({src:imgUrl(i.src),full:imgUrl(i.src)||safeUrl(i.orig),t:tr[i.src]})).filter(p=>p.src);
+  const text=pics.filter(p=>p.t&&typeof p.t==="object"), raw=pics.filter(p=>!text.includes(p));
+  const has=r.days||r.week||pics.length;
+  const c=el("div",{class:"card"+(raw.length?" wide":"")},head(r));
+  if(r.status==="error")c.append(el("div",{class:"sub err"},"Poslední pokus o načtení webu selhal."+(has?" Níže je stav z "+(r.checked?when(r.checked):"dřívějška")+".":"")));
+  else if(r.status==="stale"&&r.images)c.append(el("div",{class:"sub warn"},pics.length?"Obrázek s menu je starší než tento týden, na webu možná ještě není nové.":"Na webu se nenašel žádný obrázek s menu."));
+  else if(r.status==="stale"&&!r.days)c.append(el("div",{class:"empty"},"Web zatím ukazuje starší menu"+(r.seen?" ("+dm(r.seen.from)+" až "+dm(r.seen.to)+")":"")+"."));
+  if(r.days||r.week)c.append(...menu({days:r.days,week:r.week}));
+  for(const p of text)c.append(el("div",{class:"part"},menu({...p.t,fromImage:true}),
+    el("div",{class:"sub"},"přepsáno z obrázku, může obsahovat chyby, ",el("a",{href:p.full,target:"_blank",rel:"noopener"},"původní obrázek"))));
+  if(raw.length)c.append(el("div",{class:"sub"},"menu je na webu jako obrázek, kliknutím se otevře v plné velikosti"),
+    el("div",{class:"pics"+(raw.length===1?" one":"")},raw.map(p=>el("a",{href:p.full,target:"_blank",rel:"noopener"},el("img",{src:p.src,alt:"Menu "+r.name,loading:"lazy"})))));
+  return {c,wide:raw.length>0};
 }
 
 function render(){
@@ -176,9 +187,10 @@ function render(){
     tabs.append(el("button",{class:"tab"+(d===day?" on":"")+(d===t?" today":""),onclick:()=>{day=d;render()}},DAYS[i],el("span",{class:"n"},dm(d))));
   }
   const rs=data.restaurants||[];
-  const text=rs.filter(r=>r.status!=="link"&&!r.images), pic=rs.filter(r=>r.images), link=rs.filter(r=>r.status==="link");
-  cards.append(...text.map(textCard));
-  if(pic.length)pw.append(el("h2",{},"Menu jako obrázek"),el("div",{class:"grid"},pic.map(picCard)));
+  const built=rs.filter(r=>r.status!=="link").map(card), link=rs.filter(r=>r.status==="link");
+  cards.append(...built.filter(b=>!b.wide).map(b=>b.c));
+  const pic=built.filter(b=>b.wide).map(b=>b.c);
+  if(pic.length)pw.append(el("h2",{},"Menu jako obrázek"),el("div",{class:"grid"},pic));
   if(link.length)lw.append(el("h2",{},"Jen odkaz"),el("ul",{class:"links"},link.map(r=>el("li",{},el("b",{},r.name),safeUrl(r.url)?el("a",{href:r.url,target:"_blank",rel:"noopener"},"otevřít menu"):null))));
 }
 

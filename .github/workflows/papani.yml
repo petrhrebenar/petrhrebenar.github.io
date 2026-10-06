@@ -6,7 +6,10 @@ name: papani
 
 on:
   schedule:
-    # GitHub cron is UTC. 10:40 and 11:40 in summer, 9:40 and 10:40 in winter.
+    # GitHub cron is UTC: 9:40, 10:40 and 11:40 in summer, an hour earlier in
+    # winter. Three runs because some sites do not always answer GitHub's
+    # servers; a failed read keeps what an earlier run got.
+    - cron: "40 7 * * 1-5"
     - cron: "40 8 * * 1-5"
     - cron: "40 9 * * 1-5"
   workflow_dispatch:
@@ -23,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
