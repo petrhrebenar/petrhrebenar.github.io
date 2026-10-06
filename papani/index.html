@@ -26,6 +26,8 @@ h1{font-size:22px;font-weight:700;margin:0;flex:1}
 h2{font-size:24px;color:var(--ink);margin:52px 0 14px;font-weight:700}
 a{color:inherit}
 .status{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.statusbox{display:flex;flex-direction:column;align-items:flex-end;gap:1px;min-width:0}
+.sched{font-size:12px;color:var(--muted);text-align:right}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
 .dot.on{background:var(--ok)} .dot.busy{background:var(--warm)}
 button{font:inherit;color:inherit}
@@ -78,14 +80,14 @@ ul.links li{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:10
 ul.links li:first-child{border-top:0}
 ul.links b{flex:1}
 ul.links a{color:var(--accent)}
-@media (max-width:560px){h1{flex-basis:100%}.grid,.pics{grid-template-columns:1fr}h2{margin-top:40px}}
+@media (max-width:560px){h1{flex-basis:100%}.statusbox{align-items:flex-start;flex:1}.sched{text-align:left}.grid,.pics{grid-template-columns:1fr}h2{margin-top:40px}}
 </style>
 </head>
 <body>
 <header>
   <div class="top">
     <h1>Papání</h1>
-    <span class="status"><span class="dot" id="dot"></span><span id="statusTxt"></span></span>
+    <span class="statusbox"><span class="status"><span class="dot" id="dot"></span><span id="statusTxt"></span></span><span class="sched" id="sched"></span></span>
     <button class="btn" id="reloadBtn" title="Načíst data znovu">Obnovit</button>
   </div>
 </header>
@@ -109,6 +111,9 @@ const DATA="https://raw.githubusercontent.com/petrhrebenar/petrhrebenar.github.i
 /* Groups of restaurants; a restaurant without "group" in the data is in the first one. */
 const GROUPS=[["faculty","Faculty"],["nedochvilni","Nedochvilní"]];
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+/* When the data is refreshed. Keep in step with the cron lines of .github/workflows/papani.yml
+   (UTC, Monday to Friday) and with the scheduled task that turns menu images into text (Prague time). */
+const RUNS_UTC=[[7,40],[8,40],[9,40]], TRANSCRIBE="10:55";
 const DAYS=["Po","Út","St","Čt","Pá"], DAYS_LONG=["pondělí","úterý","středa","čtvrtek","pátek","sobota","neděle"];
 
 const $=id=>document.getElementById(id);
@@ -216,6 +221,11 @@ function render(){
   if(link.length)lw.append(el("h2",{},"Jen odkaz"),el("ul",{class:"links"},link.map(r=>el("li",{},el("b",{},r.name),safeUrl(r.url)?el("a",{href:r.url,target:"_blank",rel:"noopener"},"otevřít menu"):null))));
 }
 
+(function(){
+  const n=new Date();
+  const t=RUNS_UTC.map(([h,m])=>new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),h,m)).toLocaleTimeString("cs-CZ",{hour:"numeric",minute:"2-digit",timeZone:"Europe/Prague"}));
+  $("sched").textContent="menu se stahují po–pá kolem "+t.slice(0,-1).join(", ")+" a "+t[t.length-1]+", obrázková se přepisují v "+TRANSCRIBE;
+})();
 $("reloadBtn").addEventListener("click",load);
 load();
 </script>
