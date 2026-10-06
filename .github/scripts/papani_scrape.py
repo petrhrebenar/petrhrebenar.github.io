@@ -7,7 +7,10 @@ Reads every source in SOURCES, converts what it finds into one JSON file
 `papani-data` branch.
 
 Adding a restaurant: append an entry to SOURCES. Without a `parser` it is
-shown as a plain link. An optional `note` is shown under the name.
+shown as a plain link. An optional `note` is shown under the name. `group`
+says in which group of the page the restaurant appears ("faculty" when
+omitted). A source that is not one HTML page can bring its own `fetch`
+function, which returns the text handed to the parser.
 
 transcripts.json in the output directory holds text versions of the menu
 images, keyed by image path ("img/<id>-<hash>.<ext>"). It is written by a
@@ -70,11 +73,11 @@ def nearest_year(day, month, today):
     return best
 
 
-def fetch(url, binary=False, tries=2):
+def fetch(url, binary=False, tries=2, data=None, headers=None):
     last = None
     for i in range(tries):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "cs"})
+            req = urllib.request.Request(url, data=data, headers={"User-Agent": UA, "Accept-Language": "cs", **(headers or {})})
             with urllib.request.urlopen(req, timeout=20) as r:
                 body = r.read()
                 if binary:
@@ -280,6 +283,53 @@ def parse_uparlamentu(html, ctx):
     return {"days": days}
 
 
+MENSA_API = "https://kam-septim-fe.is.cuni.cz/webcarecanteenapiweb/"
+
+
+def fetch_mensa(ctx):
+    """The canteen page is an app; its public menu comes from a JSON API
+    that wants an anonymous session token first."""
+    monday = ctx["today"] - dt.timedelta(days=ctx["today"].weekday())
+    js = {"Content-Type": "application/json"}
+    token = json.loads(fetch(MENSA_API + "core/1.0/sessionStart", data=b"{}", headers=js))["sessionToken"]
+    js["X-SESSION-TOKEN"] = token
+    fetch(MENSA_API + "core/1.0/languageSet", data=b'{"language":"cs"}', headers=js)
+    return fetch(MENSA_API + f"canteen/1.0/menuBoard?canteenIds={ctx['canteen']}"
+                 f"&from={monday.isoformat()}&to={(monday + dt.timedelta(days=4)).isoformat()}",
+                 headers={"X-SESSION-TOKEN": token})
+
+
+def parse_mensa(text, ctx):
+    """menuBoard JSON: one entry per dish with the standard and the student price."""
+    def kc(x):
+        return str(int(x)) if float(x).is_integer() else f"{x:.2f}".replace(".", ",")
+
+    days = {}
+    for board in json.loads(text):
+        for m in board.get("menu", []):
+            name = clean((m.get("product") or {}).get("name"))
+            if not name or not m.get("date"):
+                continue
+            # "Menu 3 - Vegetarián" -> "(vegetarián)"
+            kind = clean(m.get("name", "")).partition(" - ")[2]
+            if kind:
+                name += f" ({kind.lower()})"
+            prices = [m.get("price")] + [o.get("price") for o in m.get("otherPrices", []) if o.get("categoryKey") == "student"]
+            prices = [kc(x) for x in prices if isinstance(x, (int, float))]
+            if len(set(prices)) == 1:
+                prices = prices[:1]
+            section = "Polévky" if clean(m.get("group", "")).lower().startswith("polév") else "Hlavní jídla"
+            secs = days.setdefault(m["date"], [])
+            sec = next((x for x in secs if x["name"] == section), None)
+            if sec is None:
+                sec = {"name": section, "items": []}
+                secs.append(sec)
+            sec["items"].append({"name": name, "price": " / ".join(prices) + " Kč" if prices else ""})
+    for secs in days.values():
+        secs.sort(key=lambda x: x["name"] != "Polévky")
+    return {"days": days}
+
+
 SOURCES = [
     {"id": "kolkovna", "name": "Kolkovna (V Kolkovně)", "url": "https://vkolkovne.kolkovna.cz/", "parser": parse_kolkovna},
     {"id": "castello", "name": "Pizzeria Castello", "url": "https://pizzeriacastello.cz/", "parser": parse_castello},
@@ -290,6 +340,8 @@ SOURCES = [
     {"id": "kathmandu", "name": "Kathmandu", "url": "https://restauracekathmandu.cz/denni-menu", "parser": parse_kathmandu,
      "note": "ceny bez polévky / s polévkou"},
     {"id": "uparlamentu", "name": "U Parlamentu", "url": "https://uparlamentu.cz/", "parser": parse_uparlamentu},
+    {"id": "mensa", "name": "Menza Právnická", "url": "https://kam-septim-fe.is.cuni.cz/menu?canteen=11&view=week",
+     "fetch": fetch_mensa, "canteen": 11, "parser": parse_mensa, "note": "ceny běžná / studenti"},
     # An entry with "parser": None is shown as a plain link.
 ]
 
@@ -341,7 +393,7 @@ def build(today, out, fixtures=None):
     now = dt.datetime.now(TZ).replace(microsecond=0).isoformat()
     restaurants, failed, parsed = [], 0, 0
     for src in SOURCES:
-        entry = {"id": src["id"], "name": src["name"], "url": src["url"]}
+        entry = {"id": src["id"], "name": src["name"], "url": src["url"], "group": src.get("group", "faculty")}
         if src.get("note"):
             entry["note"] = src["note"]
         if not src["parser"]:
@@ -349,11 +401,14 @@ def build(today, out, fixtures=None):
             continue
         parsed += 1
         try:
+            ctx = {"today": today, "url": src["url"], "canteen": src.get("canteen")}
             if fixtures:
                 html = (fixtures / f"{src['id']}.html").read_text(encoding="utf-8")
+            elif src.get("fetch"):
+                html = src["fetch"](ctx)
             else:
                 html = fetch(src["url"])
-            got = src["parser"](html, {"today": today, "url": src["url"]})
+            got = src["parser"](html, ctx)
         except Exception as e:  # noqa: BLE001 - one broken site must not stop the others
             failed += 1
             print(f"::warning::{src['id']}: {type(e).__name__}: {e}")
