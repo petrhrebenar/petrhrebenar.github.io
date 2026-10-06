@@ -155,7 +155,8 @@ def parse_lokal(html, ctx):
     m = re.search(r"(?:pondělí|úterý|středa|čtvrtek|pátek|sobota|neděle)\s+(\d{1,2})\.\s*(" + "|".join(MONTHS) + ")",
                   text, re.I)
     if not m:
-        raise ValueError("date not found")
+        # outside lunch hours the page carries no dated menu; keep what earlier runs got
+        return {"days": {}}
     date = nearest_year(int(m.group(1)), MONTHS.index(m.group(2).lower()) + 1, ctx["today"])
     main = {"polévky", "speciality lokálu", "hlavní jídla"}
     sections = []
