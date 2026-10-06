@@ -35,6 +35,7 @@ from bs4 import BeautifulSoup
 
 TZ = ZoneInfo("Europe/Prague")
 UA = "papani/1.0 (+https://petrhrebenar.github.io/papani/)"
+WEEKDAYS = ["pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"]
 MONTHS = ["ledna", "února", "března", "dubna", "května", "června", "července",
           "srpna", "září", "října", "listopadu", "prosince"]
 
@@ -209,6 +210,76 @@ def parse_bozskalahvice(html, ctx):
     return {"images": images}
 
 
+def parse_kathmandu(html, ctx):
+    """A standing menu per weekday (no dates) in one table."""
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.select_one("table.poledni-menu")
+    if table is None:
+        raise ValueError("menu table not found")
+    monday = ctx["today"] - dt.timedelta(days=ctx["today"].weekday())
+    days, date, section = {}, None, None
+    for tr in table.select("tbody tr"):
+        cells = tr.find_all("td")
+        if "cat" in (tr.get("class") or []):
+            # "PONDĚLÍ / MONDAY – Polévka / Soup"
+            head = clean(tr.get_text(" ")).lower()
+            wd = next((i for i, w in enumerate(WEEKDAYS) if head.startswith(w)), None)
+            if wd is None:
+                date = None
+                continue
+            date = (monday + dt.timedelta(days=wd)).isoformat()
+            section = {"name": "Polévky" if "polévk" in head else "Hlavní jídla", "items": []}
+            days.setdefault(date, []).append(section)
+        elif date and len(cells) >= 4:
+            name = clean(cells[1].get_text(" "))
+            prices = [price(c.get_text()) for c in cells[2:4]]
+            prices = [x for x in prices if re.search(r"\d", x)]
+            if name:
+                # two columns: without soup / with soup
+                section["items"].append({"name": name, "price": " / ".join(x.replace(" Kč", "") for x in prices) + " Kč" if prices else ""})
+    return {"days": {d: [s for s in secs if s["items"]] for d, secs in days.items()}}
+
+
+def parse_uparlamentu(html, ctx):
+    """Week on the homepage: a date range, then per day a soup block and a mains block."""
+    soup = BeautifulSoup(html, "html.parser")
+    head = soup.select_one("#denni_menu")
+    if head is None:
+        raise ValueError("menu section not found")
+    monday = None
+    m = re.search(r"(\d{1,2})\.\s*(?:(\d{1,2})\.)?\s*[-–]\s*(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})?", clean(head.get_text(" ")))
+    if m:
+        d2, m2 = int(m.group(3)), int(m.group(4))
+        end = dt.date(int(m.group(5)), m2, d2) if m.group(5) else nearest_year(d2, m2, ctx["today"])
+        d1, m1 = int(m.group(1)), int(m.group(2) or m2)
+        start = dt.date(end.year if m1 <= m2 else end.year - 1, m1, d1)
+        monday = start - dt.timedelta(days=start.weekday())
+    if monday is None:
+        raise ValueError("date range not found")
+    body = head.find_next_sibling("section")
+    if body is None:
+        raise ValueError("menu body not found")
+    days, date, groups = {}, None, []
+    for node in body.find_all(["h3", "p"]):
+        if node.name == "h3":
+            wd = clean(node.get_text()).lower()
+            date = (monday + dt.timedelta(days=WEEKDAYS.index(wd))).isoformat() if wd in WEEKDAYS else None
+            groups = []
+            continue
+        m = re.match(r"^(.*?)\s*(\d{2,4})\s*(?:,-|Kč)\s*$", clean(node.get_text(" ")))
+        if not (date and m):
+            continue
+        # the first block of lines under a day is the soup, the rest are mains
+        if node.parent not in groups:
+            groups.append(node.parent)
+        name = "Polévky" if groups.index(node.parent) == 0 and len(groups) == 1 else "Hlavní jídla"
+        secs = days.setdefault(date, [])
+        if not secs or secs[-1]["name"] != name:
+            secs.append({"name": name, "items": []})
+        secs[-1]["items"].append({"name": m.group(1), "price": f"{m.group(2)} Kč"})
+    return {"days": days}
+
+
 SOURCES = [
     {"id": "kolkovna", "name": "Kolkovna (V Kolkovně)", "url": "https://vkolkovne.kolkovna.cz/", "parser": parse_kolkovna},
     {"id": "castello", "name": "Pizzeria Castello", "url": "https://pizzeriacastello.cz/", "parser": parse_castello},
@@ -216,9 +287,10 @@ SOURCES = [
      "note": "jeden student má slevu 20 % na až 2 jídla"},
     {"id": "lacasablu", "name": "La Casa Blů", "url": "https://lacasablu.cz/", "parser": parse_lacasablu},
     {"id": "bozskalahvice", "name": "Božská lahvice", "url": "https://www.bozskalahvice.cz/", "parser": parse_bozskalahvice},
-    # No parser: these sites do not allow automated reading, so they stay links.
-    {"id": "kathmandu", "name": "Kathmandu", "url": "https://restauracekathmandu.cz/denni-menu", "parser": None},
-    {"id": "uparlamentu", "name": "U Parlamentu", "url": "https://uparlamentu.cz/", "parser": None},
+    {"id": "kathmandu", "name": "Kathmandu", "url": "https://restauracekathmandu.cz/denni-menu", "parser": parse_kathmandu,
+     "note": "ceny bez polévky / s polévkou"},
+    {"id": "uparlamentu", "name": "U Parlamentu", "url": "https://uparlamentu.cz/", "parser": parse_uparlamentu},
+    # An entry with "parser": None is shown as a plain link.
 ]
 
 
