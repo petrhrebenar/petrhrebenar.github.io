@@ -40,6 +40,11 @@ a { color: #000; }
 .contacts > div + div { border-top: 1px solid #000; }
 .contacts dd { margin: 0; overflow-wrap: anywhere; hyphens: none; -webkit-hyphens: none; }
 
+/* Home page reduced to the name: exact centre of the window, footer at the bottom */
+body.solo-page { display: grid; grid-template-rows: 1fr auto 1fr; }
+.solo { grid-row: 2; padding: 16px; text-align: center; }
+.solo-page .site-footer { grid-row: 3; align-self: end; }
+
 /* Inner pages */
 .back { margin-bottom: 1.2em; }
 h1 { font-size: 1.9em; line-height: 1.15; margin: 0 0 0.8em; }
