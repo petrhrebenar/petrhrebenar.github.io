@@ -1,0 +1,54 @@
+name: papani
+
+# Reads the lunch menus and publishes them as the papani-data branch
+# (menus.json + img/), which /papani/ loads. The branch is rewritten as a
+# single commit on every run, so it never grows and main stays untouched.
+
+on:
+  schedule:
+    # GitHub cron is UTC. 10:40 and 11:40 in summer, 9:40 and 10:40 in winter.
+    - cron: "40 8 * * 1-5"
+    - cron: "40 9 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: papani
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet beautifulsoup4
+
+      - name: Previous data (keeps the days Lokál has already published this week)
+        run: |
+          git clone --quiet --depth 1 --branch papani-data \
+            "https://github.com/${GITHUB_REPOSITORY}.git" data 2>/dev/null || mkdir -p data
+          rm -rf data/.git
+
+      - name: Scrape
+        run: python .github/scripts/papani_scrape.py --out data
+
+      - name: Publish to papani-data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd data
+          git init --quiet -b papani-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit --quiet -m "papani: $(date -u +%F)"
+          git push --quiet --force \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" papani-data

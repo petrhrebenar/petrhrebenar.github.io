@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Papání</title>
+<style>
+@font-face{font-family:"Latin Modern Roman";src:url("../fonts/lmroman10-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Latin Modern Roman";src:url("../fonts/lmroman10-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Latin Modern Roman";src:url("../fonts/lmroman10-bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --bg:#ffffff; --card:#ffffff; --ink:#000000; --muted:#555555; --line:#000000; --rule:#c8c8c8;
+  --accent:#2f5d8a; --accent-soft:#eef3f8; --warm:#b0592d; --warm-soft:#f8ede6;
+  --late:#b3261e; --ok:#2e7d4f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.4 "Latin Modern Roman","Computer Modern Serif",Georgia,serif}
+.wrap,.top{max-width:1012px;margin:0 auto;padding-left:16px;padding-right:16px}
+.wrap{padding-top:36px;padding-bottom:60px}
+header{border-bottom:1px solid var(--ink)}
+.top{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;padding-top:14px;padding-bottom:10px}
+h1{font-size:22px;font-weight:700;margin:0;flex:1}
+h2{font-size:24px;color:var(--ink);margin:52px 0 14px;font-weight:700}
+a{color:inherit}
+.status{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
+.dot.on{background:var(--ok)} .dot.busy{background:var(--warm)}
+button{font:inherit;color:inherit}
+.btn{background:var(--card);border:1px solid var(--line);border-radius:0;padding:6px 12px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.banner{background:var(--accent-soft);border:1px solid var(--accent);border-radius:0;padding:10px 14px;font-size:14px;margin-bottom:24px}
+.banner.warn{background:var(--warm-soft);border-color:var(--warm)}
+/* day tabs */
+.tabs{display:flex;gap:6px;align-items:center;margin:0 0 14px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:0;padding:5px 14px;cursor:pointer}
+.tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab .n{opacity:.6;margin-left:6px}
+.tab.today:not(.on){box-shadow:inset 0 -3px 0 var(--accent)}
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:1px 0 0 1px;align-items:stretch}
+.card{background:var(--card);border:1px solid var(--line);margin:-1px 0 0 -1px;border-radius:0;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card.wide{grid-column:1/-1}
+.card h3{margin:0;font-size:18px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h3 .name{flex:1}
+.card h3 a{font-size:13px;font-weight:400;color:var(--accent)}
+.sub{font-size:13px;color:var(--muted)}
+.sub.warn{color:var(--warm)} .sub.err{color:var(--late)}
+.sec{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:4px 0 -4px}
+ul.menu{list-style:none;margin:0;padding:0}
+ul.menu li{display:flex;gap:14px;align-items:baseline;padding:5px 0;border-top:1px solid var(--rule)}
+ul.menu li:first-child{border-top:0}
+ul.menu .dish{flex:1;min-width:0;overflow-wrap:anywhere}
+ul.menu .price{white-space:nowrap;font-variant-numeric:tabular-nums}
+.empty{color:var(--muted)}
+details summary{cursor:pointer;color:var(--muted);font-size:13px}
+details .sec{margin-top:12px}
+.pics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.pics.one{grid-template-columns:minmax(0,480px)}
+.pics a{display:block;border:1px solid var(--rule)}
+.pics img{display:block;width:100%;height:auto}
+ul.links{list-style:none;margin:0;padding:0;border:1px solid var(--line)}
+ul.links li{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:10px 16px;border-top:1px solid var(--rule)}
+ul.links li:first-child{border-top:0}
+ul.links b{flex:1}
+ul.links a{color:var(--accent)}
+@media (max-width:560px){h1{flex-basis:100%}.grid,.pics{grid-template-columns:1fr}h2{margin-top:40px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>Papání</h1>
+    <span class="status"><span class="dot" id="dot"></span><span id="statusTxt"></span></span>
+    <button class="btn" id="reloadBtn" title="Načíst data znovu">Obnovit</button>
+  </div>
+</header>
+<div class="wrap">
+  <div class="banner" id="banner" hidden></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="cards"></div>
+  <div id="picWrap"></div>
+  <div id="linkWrap"></div>
+</div>
+
+<script>
+"use strict";
+/* Data: branch papani-data, written by .github/workflows/papani.yml */
+const DATA="https://raw.githubusercontent.com/petrhrebenar/petrhrebenar.github.io/papani-data/";
+const DAYS=["Po","Út","St","Čt","Pá"], DAYS_LONG=["pondělí","úterý","středa","čtvrtek","pátek","sobota","neděle"];
+
+const $=id=>document.getElementById(id);
+const el=(tag,props={},...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(props)){if(k==="class")e.className=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(v!==undefined&&v!==null&&v!==false)e.setAttribute(k,v===true?"":v)}for(const c of kids.flat())if(c!=null&&c!==false)e.append(c.nodeType?c:String(c));return e};
+const iso=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const today=()=>iso(new Date());
+const addDays=(s,n)=>{const d=new Date(s+"T00:00");d.setDate(d.getDate()+n);return iso(d)};
+const dm=s=>{const d=new Date(s+"T00:00");return d.getDate()+". "+(d.getMonth()+1)+"."};
+const mondayOf=s=>{const d=new Date(s+"T00:00");return addDays(s,-((d.getDay()+6)%7))};
+const safeUrl=u=>/^https:\/\//.test(u||"")?u:null;
+const imgUrl=s=>/^img\/[\w.-]+$/.test(s||"")?DATA+s:safeUrl(s);
+
+let data=null, day=null;
+
+function status(cls,txt){$("dot").className="dot"+(cls?" "+cls:"");$("statusTxt").textContent=txt}
+function banner(txt,warn){const b=$("banner");b.hidden=!txt;b.textContent=txt||"";b.className="banner"+(warn?" warn":"")}
+
+async function load(){
+  status("busy","načítám");
+  try{
+    const r=await fetch(DATA+"menus.json?t="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    data=await r.json();
+  }catch(e){
+    data=null;status("","bez dat");
+    banner("Data se nepodařilo načíst ("+e.message+"). Větev papani-data vznikne při prvním běhu workflow „papani“ v záložce Actions.",true);
+    render();return;
+  }
+  const t=today(), cur=mondayOf(t);
+  const wd=(new Date(t+"T00:00").getDay()+6)%7;
+  if(!day||day<data.week||day>addDays(data.week,4))day=data.week===cur?addDays(data.week,Math.min(wd,4)):data.week;
+  const up=new Date(data.updated), fresh=iso(up)===t;
+  status(fresh?"on":"busy","aktualizováno "+DAYS_LONG[(up.getDay()+6)%7]+" "+dm(iso(up))+" "+up.toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"}));
+  banner(data.week!==cur?"Zobrazená data jsou z týdne "+dm(data.week)+" až "+dm(addDays(data.week,4))+" Nová se načítají ve všední dny dopoledne.":"",true);
+  render();
+}
+
+function sections(list){
+  const out=[], extra=[];
+  for(const s of list||[]){
+    const block=[s.name?el("div",{class:"sec"},s.name):null,
+      el("ul",{class:"menu"},(s.items||[]).map(i=>el("li",{},el("span",{class:"dish"},i.name),i.price?el("span",{class:"price"},i.price):null)))];
+    (s.extra?extra:out).push(...block.filter(Boolean));
+  }
+  if(extra.length)out.push(el("details",{},el("summary",{},(list.filter(s=>s.extra).map(s=>s.name).join(", "))),extra));
+  return out;
+}
+
+function head(r){return el("h3",{},el("span",{class:"name"},r.name),safeUrl(r.url)?el("a",{href:r.url,target:"_blank",rel:"noopener"},"web"):null)}
+
+function textCard(r){
+  const c=el("div",{class:"card"},head(r));
+  if(r.status==="error")c.append(el("div",{class:"sub err"},"Web se dnes nepodařilo přečíst."+(r.days||r.week?" Níže je poslední známý stav.":"")));
+  if(r.week){
+    const w=r.week;
+    c.append(el("div",{class:"sub"},"týdenní menu"+(w.from?" "+dm(w.from)+" až "+dm(w.to):"")),...sections(w.sections));
+  }else if(r.days){
+    const d=r.days[day];
+    if(d)c.append(...sections(d));
+    else{
+      const known=Object.keys(r.days).length;
+      c.append(el("div",{class:"empty"},day>today()?"Menu na tento den ještě není zveřejněné.":known?"Na tento den se menu nezachytilo.":"Menu na tento týden zatím na webu není."));
+    }
+  }else if(r.status==="stale"){
+    c.append(el("div",{class:"empty"},"Web zatím ukazuje starší menu"+(r.seen?" ("+dm(r.seen.from)+" až "+dm(r.seen.to)+")":"")+"."));
+  }
+  return c;
+}
+
+function picCard(r){
+  const pics=(r.images||[]).map(i=>({src:imgUrl(i.src),full:safeUrl(i.orig)||imgUrl(i.src),i})).filter(p=>p.src);
+  const c=el("div",{class:"card wide"},head(r));
+  if(r.status==="error")c.append(el("div",{class:"sub err"},"Web se dnes nepodařilo přečíst."+(pics.length?" Níže je poslední známý stav.":"")));
+  else if(r.status==="stale")c.append(el("div",{class:"sub warn"},pics.length?"Obrázek je starší než tento týden, na webu možná ještě není nové menu.":"Na webu se nenašel žádný obrázek s menu."));
+  else c.append(el("div",{class:"sub"},"menu je na webu jako obrázek, kliknutím se otevře v plné velikosti"));
+  if(pics.length)c.append(el("div",{class:"pics"+(pics.length===1?" one":"")},pics.map(p=>el("a",{href:p.full,target:"_blank",rel:"noopener"},el("img",{src:p.src,alt:"Menu "+r.name,loading:"lazy"})))));
+  return c;
+}
+
+function render(){
+  const tabs=$("tabs"), cards=$("cards"), pw=$("picWrap"), lw=$("linkWrap");
+  tabs.replaceChildren();cards.replaceChildren();pw.replaceChildren();lw.replaceChildren();
+  if(!data)return;
+  const t=today();
+  for(let i=0;i<5;i++){
+    const d=addDays(data.week,i);
+    tabs.append(el("button",{class:"tab"+(d===day?" on":"")+(d===t?" today":""),onclick:()=>{day=d;render()}},DAYS[i],el("span",{class:"n"},dm(d))));
+  }
+  const rs=data.restaurants||[];
+  const text=rs.filter(r=>r.status!=="link"&&!r.images), pic=rs.filter(r=>r.images), link=rs.filter(r=>r.status==="link");
+  cards.append(...text.map(textCard));
+  if(pic.length)pw.append(el("h2",{},"Menu jako obrázek"),el("div",{class:"grid"},pic.map(picCard)));
+  if(link.length)lw.append(el("h2",{},"Jen odkaz"),el("ul",{class:"links"},link.map(r=>el("li",{},el("b",{},r.name),safeUrl(r.url)?el("a",{href:r.url,target:"_blank",rel:"noopener"},"otevřít menu"):null))));
+}
+
+$("reloadBtn").addEventListener("click",load);
+load();
+</script>
+</body>
+</html>
