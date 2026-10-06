@@ -69,12 +69,12 @@ def nearest_year(day, month, today):
     return best
 
 
-def fetch(url, binary=False, tries=3):
+def fetch(url, binary=False, tries=2):
     last = None
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "cs"})
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 body = r.read()
                 if binary:
                     return body, r.headers.get_content_type()
@@ -285,7 +285,7 @@ def build(today, out, fixtures=None):
         except Exception as e:  # noqa: BLE001 - one broken site must not stop the others
             failed += 1
             print(f"::warning::{src['id']}: {type(e).__name__}: {e}")
-            keep = {k: v for k, v in prev.get(src["id"], {}).items() if k in ("days", "week", "images")}
+            keep = {k: v for k, v in prev.get(src["id"], {}).items() if k in ("days", "week", "images", "checked")}
             restaurants.append({**entry, **keep, "status": "error", "error": f"{type(e).__name__}: {e}"[:200]})
             continue
 
@@ -311,7 +311,7 @@ def build(today, out, fixtures=None):
             months = [i["month"] for i in entry["images"] if i.get("month")]
             if not entry["images"] or (dates and max(dates) < monday.isoformat()) or (months and max(months) < last_month):
                 status = "stale"
-        restaurants.append({**entry, "status": status})
+        restaurants.append({**entry, "status": status, "checked": now})
         print(f"{src['id']}: {status}")
 
     # drop images no longer referenced
