@@ -9,8 +9,9 @@ Reads every source in SOURCES, converts what it finds into one JSON file
 Adding a restaurant: append an entry to SOURCES. Without a `parser` it is
 shown as a plain link. An optional `note` is shown under the name. `group`
 says in which group of the page the restaurant appears ("faculty" when
-omitted). A source that is not one HTML page can bring its own `fetch`
-function, which returns the text handed to the parser.
+omitted; a list puts it in several). When the menu is not in the page
+itself, `data_url` names the file to read instead, or `fetch` a function
+that returns the text handed to the parser.
 
 transcripts.json in the output directory holds text versions of the menu
 images, keyed by image path ("img/<id>-<hash>.<ext>"). It is written by a
@@ -20,9 +21,10 @@ with any of:
   days:   {"YYYY-MM-DD": [section, ...]}      menu for specific days
   week:   {"from": iso, "to": iso, "sections": [section, ...]}  one menu for the whole week
   images: [{"url": absolute_url, "try": [urls to download from], "date": iso or None}]  menu as a picture
-where section = {"name": str, "items": [{"name": str, "price": str}], "extra": bool}.
+where section = {"name": str, "items": [{"name": str, "price": str, "desc": str}], "extra": bool}.
 """
 import argparse
+import csv
 import datetime as dt
 import hashlib
 import json
@@ -283,6 +285,68 @@ def parse_uparlamentu(html, ctx):
     return {"days": days}
 
 
+def parse_menubot(text, ctx):
+    """menubot.cz export used by the restaurant's own page: a TSV with one
+    dish per line and the date it is for. Only today's menu is published."""
+    days = {}
+    for row in csv.DictReader(text.lstrip("\ufeff").splitlines(), delimiter="\t"):
+        row = {clean(k): clean(v) for k, v in row.items() if k}
+        name, date, cat = row.get("název"), row.get("date"), row.get("kategorie", "")
+        if not name or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date or ""):
+            continue
+        # "1. LEDVINKY NA CIBULCE" -> "Ledvinky na cibulce"
+        name = re.sub(r"^\d+\.\s*", "", name)
+        name = name[:1].upper() + name[1:].lower()
+        section = cat[:1].upper() + cat[1:].lower()
+        secs = days.setdefault(date, [])
+        sec = next((x for x in secs if x["name"] == section), None)
+        if sec is None:
+            sec = {"name": section, "items": [], "extra": section not in ("Polévky", "Hlavní jídla")}
+            secs.append(sec)
+        item = {"name": name, "price": price(row.get("cena", ""))}
+        if row.get("popis"):
+            item["desc"] = row["popis"]
+        sec["items"].append(item)
+    return {"days": days}
+
+
+def parse_untappd(text, ctx):
+    """Untappd for Business embed: a script that writes the menu HTML into
+    the page. Only today's menu is published, dated in its title."""
+    m = re.search(r'container\.innerHTML = ("(?:[^"\\]|\\.)*");', text)
+    if not m:
+        raise ValueError("embedded menu not found")
+    soup = BeautifulSoup(json.loads(m.group(1).replace("\\'", "'")), "html.parser")
+    days = {}
+    for tab in soup.select(".tab-content") or [soup]:
+        title = tab.select_one(".menu-title")
+        d = re.search(r"(\d{1,2})\.\s*(\d{1,2})\.", clean(title.get_text()) if title else "")
+        if not d:
+            continue
+        date = nearest_year(int(d.group(1)), int(d.group(2)), ctx["today"]).isoformat()
+        for sec in tab.select(".section"):
+            head = sec.select_one(".section-name")
+            name = clean(head.get_text()) if head else ""
+            name = "Polévky" if name.lower().startswith("polév") else name
+            items = []
+            for it in sec.select(".menu-item"):
+                n, desc, pr = it.select_one(".item-name"), it.select_one(".item-description p"), it.select_one(".price")
+                if not n:
+                    continue
+                # the description continues the name; allergens ("A: 1,3,7") go
+                full = clean(n.get_text()) + " " + (clean(desc.get_text()) if desc else "")
+                full = clean(re.sub(r"\s*A\s*:\s*[\d\s,]+$", "", clean(full)))
+                num = re.search(r"\d+(?:[.,]\d+)?", clean(pr.get_text()) if pr else "")
+                cost = ""
+                if num:
+                    v = float(num.group(0).replace(",", "."))
+                    cost = (str(int(v)) if v.is_integer() else f"{v:.2f}".replace(".", ",")) + " Kč"
+                items.append({"name": full, "price": cost})
+            if items:
+                days.setdefault(date, []).append({"name": name, "items": items})
+    return {"days": days}
+
+
 MENSA_API = "https://kam-septim-fe.is.cuni.cz/webcarecanteenapiweb/"
 
 
@@ -338,10 +402,19 @@ SOURCES = [
     {"id": "lacasablu", "name": "La Casa Blů", "url": "https://lacasablu.cz/", "parser": parse_lacasablu},
     {"id": "bozskalahvice", "name": "Božská lahvice", "url": "https://www.bozskalahvice.cz/", "parser": parse_bozskalahvice},
     {"id": "kathmandu", "name": "Kathmandu", "url": "https://restauracekathmandu.cz/denni-menu", "parser": parse_kathmandu,
-     "note": "ceny bez polévky / s polévkou"},
+     "note": "ceny bez polévky / s polévkou", "group": ["faculty", "nedochvilni"]},
     {"id": "uparlamentu", "name": "U Parlamentu", "url": "https://uparlamentu.cz/", "parser": parse_uparlamentu},
     {"id": "mensa", "name": "Menza Právnická", "url": "https://kam-septim-fe.is.cuni.cz/menu?canteen=11&view=week",
      "fetch": fetch_mensa, "canteen": 11, "parser": parse_mensa, "note": "ceny běžná / studenti"},
+    {"id": "vinohradskyparlament", "name": "Vinohradský parlament", "url": "https://www.vinohradskyparlament.cz/",
+     "data_url": "https://www.menubot.cz/app/users/Access-Control-Allow-Origin.php?hash=vinohradskyparlament264125698&file=shoptet.tsv",
+     "parser": parse_menubot, "group": "nedochvilni"},
+    {"id": "zapomenutycas", "name": "Zapomenutý čas", "url": "https://www.zapomenutycas.cz/",
+     "data_url": "https://business.untappd.com/locations/32669/themes/126205/js",
+     "parser": parse_untappd, "group": "nedochvilni"},
+    # same site template as Kathmandu
+    {"id": "everest", "name": "Everest", "url": "https://www.restauraceeverest.cz/denni-menu", "parser": parse_kathmandu,
+     "note": "ceny bez polévky / s polévkou", "group": "nedochvilni"},
     # An entry with "parser": None is shown as a plain link.
 ]
 
@@ -407,7 +480,7 @@ def build(today, out, fixtures=None):
             elif src.get("fetch"):
                 html = src["fetch"](ctx)
             else:
-                html = fetch(src["url"])
+                html = fetch(src.get("data_url") or src["url"])
             got = src["parser"](html, ctx)
         except Exception as e:  # noqa: BLE001 - one broken site must not stop the others
             failed += 1
