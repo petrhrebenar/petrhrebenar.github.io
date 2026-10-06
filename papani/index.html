@@ -15,9 +15,11 @@
   --late:#b3261e; --ok:#2e7d4f;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.4 "Latin Modern Roman","Computer Modern Serif",Georgia,serif}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font:17px/1.4 "Latin Modern Roman","Computer Modern Serif",Georgia,serif}
 .wrap,.top{max-width:1012px;margin:0 auto;padding-left:16px;padding-right:16px}
-.wrap{padding-top:36px;padding-bottom:60px}
+.wrap{padding-top:36px;padding-bottom:60px;flex:1;width:100%}
+footer{border-top:1px solid var(--ink)}
+footer .top{font-size:13px;padding-top:12px;padding-bottom:12px}
 header{border-bottom:1px solid var(--ink)}
 .top{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;padding-top:14px;padding-bottom:10px}
 h1{font-size:22px;font-weight:700;margin:0;flex:1}
@@ -37,6 +39,13 @@ button{font:inherit;color:inherit}
 .tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .tab .n{opacity:.6;margin-left:6px}
 .tab.today:not(.on){box-shadow:inset 0 -3px 0 var(--accent)}
+/* group picker */
+.pick{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;border:1px solid var(--line);padding:10px 16px;margin:0 0 16px}
+.pick .lbl{font-size:13px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:0;overflow:hidden}
+.seg button{border:0;background:transparent;padding:5px 14px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
 /* cards */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
 .card{background:var(--card);border:1px solid var(--line);border-radius:0;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
@@ -82,15 +91,23 @@ ul.links a{color:var(--accent)}
 <div class="wrap">
   <div class="banner" id="banner" hidden></div>
   <div class="tabs" id="tabs"></div>
+  <div class="pick" id="pick" hidden><span class="lbl">Skupina</span><span class="seg" id="groupSeg"></span></div>
   <div class="grid" id="cards"></div>
   <div id="picWrap"></div>
   <div id="linkWrap"></div>
 </div>
 
+<footer>
+  <div class="top">*Working version vibe coded with Claude Opus 5.5, any bugs or request for more spots please report to Petr</div>
+</footer>
+
 <script>
 "use strict";
 /* Data: branch papani-data, written by .github/workflows/papani.yml */
 const DATA="https://raw.githubusercontent.com/petrhrebenar/petrhrebenar.github.io/papani-data/";
+/* Groups of restaurants; a restaurant without "group" in the data is in the first one. */
+const GROUPS=[["faculty","Faculty"],["nedochvilni","Nedochvilní"]];
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 const DAYS=["Po","Út","St","Čt","Pá"], DAYS_LONG=["pondělí","úterý","středa","čtvrtek","pátek","sobota","neděle"];
 
 const $=id=>document.getElementById(id);
@@ -105,6 +122,7 @@ const safeUrl=u=>/^https:\/\//.test(u||"")?u:null;
 const imgUrl=s=>/^img\/[\w.-]+$/.test(s||"")?DATA+s:safeUrl(s);
 
 let data=null, tr={}, day=null;
+let group=GROUPS.some(g=>g[0]===store.get("papani.group"))?store.get("papani.group"):GROUPS[0][0];
 
 function status(cls,txt){$("dot").className="dot"+(cls?" "+cls:"");$("statusTxt").textContent=txt}
 function banner(txt,warn){const b=$("banner");b.hidden=!txt;b.textContent=txt||"";b.className="banner"+(warn?" warn":"")}
@@ -180,13 +198,16 @@ function card(r){
 function render(){
   const tabs=$("tabs"), cards=$("cards"), pw=$("picWrap"), lw=$("linkWrap");
   tabs.replaceChildren();cards.replaceChildren();pw.replaceChildren();lw.replaceChildren();
+  $("pick").hidden=!data;
   if(!data)return;
+  $("groupSeg").replaceChildren(...GROUPS.map(([id,label])=>el("button",{type:"button",class:id===group?"on":"","aria-pressed":id===group?"true":"false",onclick:()=>{group=id;store.set("papani.group",id);render()}},label)));
   const t=today();
   for(let i=0;i<5;i++){
     const d=addDays(data.week,i);
     tabs.append(el("button",{class:"tab"+(d===day?" on":"")+(d===t?" today":""),onclick:()=>{day=d;render()}},DAYS[i],el("span",{class:"n"},dm(d))));
   }
-  const rs=data.restaurants||[];
+  const rs=(data.restaurants||[]).filter(r=>[].concat(r.group||GROUPS[0][0]).includes(group));
+  if(!rs.length){cards.append(el("div",{class:"empty"},"V této skupině zatím nejsou žádné restaurace."));return}
   const built=rs.filter(r=>r.status!=="link").map(card), link=rs.filter(r=>r.status==="link");
   cards.append(...built.filter(b=>!b.wide).map(b=>b.c));
   const pic=built.filter(b=>b.wide).map(b=>b.c);
