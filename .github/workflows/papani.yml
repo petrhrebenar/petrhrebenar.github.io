@@ -9,9 +9,9 @@ on:
     # GitHub cron is UTC: 9:40, 10:40 and 11:40 in summer, an hour earlier in
     # winter. Three runs because some sites do not always answer GitHub's
     # servers; a failed read keeps what an earlier run got.
-    - cron: "40 7 * * 1-5"
-    - cron: "40 8 * * 1-5"
-    - cron: "40 9 * * 1-5"
+    - cron: "41 7 * * 1-5"
+    - cron: "41 8 * * 1-5"
+    - cron: "41 9 * * 1-5"
   workflow_dispatch:
 
 permissions:
