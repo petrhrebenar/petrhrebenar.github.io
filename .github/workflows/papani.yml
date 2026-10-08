@@ -6,12 +6,12 @@ name: papani
 
 on:
   schedule:
-    # GitHub cron is UTC: 9:40, 10:40 and 11:40 in summer, an hour earlier in
-    # winter. Three runs because some sites do not always answer GitHub's
-    # servers; a failed read keeps what an earlier run got.
-    - cron: "41 7 * * 1-5"
-    - cron: "41 8 * * 1-5"
-    - cron: "41 9 * * 1-5"
+    # GitHub cron is UTC: every half hour from 8:17 to 11:47 in summer, an hour
+    # earlier in winter. GitHub often starts scheduled runs late or drops them,
+    # so there are eight; a failed read keeps what an earlier run got. A Claude
+    # scheduled task also checks at 9:52 and 10:52 Prague time and starts this
+    # workflow itself when the data is older than an hour (watchdog.json).
+    - cron: "17,47 6-9 * * 1-5"
   workflow_dispatch:
 
 permissions:

@@ -16,7 +16,9 @@ that returns the text handed to the parser.
 transcripts.json in the output directory holds text versions of the menu
 images, keyed by image path ("img/<id>-<hash>.<ext>"). It is written by a
 separate scheduled task, not by this script; this script only keeps it and
-drops entries whose image is gone. A parser receives the page HTML and returns a dict
+drops entries whose image is gone. watchdog.json (written by the scheduled
+task that starts this workflow when GitHub's schedule misses) is kept as is.
+A parser receives the page HTML and returns a dict
 with any of:
   days:   {"YYYY-MM-DD": [section, ...]}      menu for specific days
   week:   {"from": iso, "to": iso, "sections": [section, ...]}  one menu for the whole week

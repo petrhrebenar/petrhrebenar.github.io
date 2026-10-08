@@ -87,7 +87,7 @@ ul.links a{color:var(--accent)}
 <header>
   <div class="top">
     <h1>Papání</h1>
-    <span class="statusbox"><span class="status"><span class="dot" id="dot"></span><span id="statusTxt"></span></span><span class="sched" id="sched"></span></span>
+    <span class="statusbox"><span class="status"><span class="dot" id="dot"></span><span id="statusTxt"></span></span><span class="sched" id="watch" hidden></span><span class="sched" id="sched"></span></span>
     <button class="btn" id="reloadBtn" title="Načíst data znovu">Obnovit</button>
   </div>
 </header>
@@ -111,9 +111,11 @@ const DATA="https://raw.githubusercontent.com/petrhrebenar/petrhrebenar.github.i
 /* Groups of restaurants; a restaurant without "group" in the data is in the first one. */
 const GROUPS=[["faculty","Faculty"],["nedochvilni","Nedochvilní"]];
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-/* When the data is refreshed. Keep in step with the cron lines of .github/workflows/papani.yml
-   (UTC, Monday to Friday) and with the scheduled task that turns menu images into text (Prague time). */
-const RUNS_UTC=[[7,40],[8,40],[9,40]], TRANSCRIBE="10:55";
+/* When the data is refreshed. Keep in step with the cron line of .github/workflows/papani.yml
+   (UTC, Monday to Friday, every half hour from the first to the last run) and with the two
+   scheduled tasks (Prague time): the check that starts the workflow when GitHub's schedule
+   missed (it writes watchdog.json) and the one that turns menu images into text. */
+const RUNS_UTC=[[6,17],[9,47]], CHECKS="9:52 a 10:52", TRANSCRIBE="10:55";
 const DAYS=["Po","Út","St","Čt","Pá"], DAYS_LONG=["pondělí","úterý","středa","čtvrtek","pátek","sobota","neděle"];
 
 const $=id=>document.getElementById(id);
@@ -130,6 +132,15 @@ const imgUrl=s=>/^img\/[\w.-]+$/.test(s||"")?DATA+s:safeUrl(s);
 let data=null, tr={}, day=null;
 let group=GROUPS.some(g=>g[0]===store.get("papani.group"))?store.get("papani.group"):GROUPS[0][0];
 
+/* Last run of the scheduled check (watchdog.json): {checked, result: fresh|ok|failed, run?} */
+function watch(w){
+  const box=$("watch");
+  const txt=w&&w.checked&&!isNaN(new Date(w.checked))?{fresh:"data byla aktuální",ok:"stahování spuštěno, proběhlo",failed:"stahování spuštěno, selhalo"}[w.result]:null;
+  box.hidden=!txt;box.textContent="";
+  if(!txt)return;
+  box.append("kontrola "+when(w.checked)+": "+txt);
+  if(w.result==="failed"&&safeUrl(w.run))box.append(" (",el("a",{href:w.run,target:"_blank",rel:"noopener"},"detail"),")");
+}
 function status(cls,txt){$("dot").className="dot"+(cls?" "+cls:"");$("statusTxt").textContent=txt}
 function banner(txt,warn){const b=$("banner");b.hidden=!txt;b.textContent=txt||"";b.className="banner"+(warn?" warn":"")}
 const getJson=async f=>{const r=await fetch(DATA+f+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json()};
@@ -138,8 +149,10 @@ async function load(){
   status("busy","načítám");
   try{
     /* transcripts.json (text versions of menu images) is optional */
-    [data,tr]=await Promise.all([getJson("menus.json"),getJson("transcripts.json").catch(()=>({}))]);
+    let wd;
+    [data,tr,wd]=await Promise.all([getJson("menus.json"),getJson("transcripts.json").catch(()=>({})),getJson("watchdog.json").catch(()=>null)]);
     if(!tr||typeof tr!=="object")tr={};
+    watch(wd);
   }catch(e){
     data=null;status("","bez dat");
     banner("Data se nepodařilo načíst ("+e.message+"). Větev papani-data vznikne při prvním běhu workflow „papani“ v záložce Actions.",true);
@@ -224,7 +237,7 @@ function render(){
 (function(){
   const n=new Date();
   const t=RUNS_UTC.map(([h,m])=>new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),h,m)).toLocaleTimeString("cs-CZ",{hour:"numeric",minute:"2-digit",timeZone:"Europe/Prague"}));
-  $("sched").textContent="menu se stahují po–pá kolem "+t.slice(0,-1).join(", ")+" a "+t[t.length-1]+", obrázková se přepisují v "+TRANSCRIBE;
+  $("sched").textContent="menu se stahují po–pá každou půlhodinu "+t[0]+"–"+t[1]+", kontrola v "+CHECKS+", obrázková se přepisují v "+TRANSCRIBE;
 })();
 $("reloadBtn").addEventListener("click",load);
 load();
