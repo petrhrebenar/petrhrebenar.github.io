@@ -1,0 +1,98 @@
+{
+ "img/lacasablu-f52ecb2dd0.jpg": {
+  "transcribed": "2026-10-06T12:35:00+02:00",
+  "title": "polední menu, pondělí až pátek 11:30–14:30",
+  "note": "Malá polévka k menu 19 Kč (menu 208 Kč), velká polévka k menu 39 Kč (menu 228 Kč). K polednímu menu studený čaj zdarma.",
+  "days": {
+   "2026-10-05": [
+    {"name": "Polévky", "items": [{"name": "Polévka zeleninová krémová", "price": ""}]},
+    {"name": "Hlavní jídla", "items": [{"name": "Quesadilla s vepřovou panenkou a jalapeños", "price": "189 Kč"}]}
+   ],
+   "2026-10-06": [
+    {"name": "Polévky", "items": [{"name": "Česnečka", "price": ""}]},
+    {"name": "Hlavní jídla", "items": [{"name": "Burger s kuřecím masem, rukolou a rajčaty", "price": "189 Kč"}]}
+   ],
+   "2026-10-07": [
+    {"name": "Polévky", "items": [{"name": "Polévka fazolová s kokosovým mlékem", "price": ""}]},
+    {"name": "Hlavní jídla", "items": [{"name": "Vepřová panenka na cibulce s bramborem na rozmarýnu", "price": "189 Kč"}]}
+   ],
+   "2026-10-08": [
+    {"name": "Polévky", "items": [{"name": "Polévka rajčatová s parmezánem", "price": ""}]},
+    {"name": "Hlavní jídla", "items": [{"name": "Quesadillas s hovězím masem a avokádem", "price": "189 Kč"}]}
+   ],
+   "2026-10-09": [
+    {"name": "Polévky", "items": [{"name": "Polévka bramorová krémová", "price": ""}]},
+    {"name": "Hlavní jídla", "items": [{"name": "Lomo saltado s rýží", "price": "189 Kč"}]}
+   ],
+   "2026-10-10": [
+    {"name": "Polévky", "items": [{"name": "Polévka gulášová", "price": ""}]}
+   ],
+   "2026-10-11": [
+    {"name": "Polévky", "items": [{"name": "Polévka gulášová", "price": ""}]}
+   ]
+  }
+ },
+ "img/lacasablu-8dd0d4d12e.jpg": {
+  "transcribed": "2026-10-06T12:35:00+02:00",
+  "week": {
+   "label": "stálé polední menu",
+   "from": "2026-10-05",
+   "to": "2026-10-25",
+   "sections": [
+    {"name": "Klasika s polévkou", "items": [
+     {"name": "Nachos kuřecí pro 1 os.", "price": "218 Kč"},
+     {"name": "Quesadilla cuketa a lilek", "price": "218 Kč"},
+     {"name": "Burrito chile con carne", "price": "218 Kč"}
+    ]},
+    {"name": "Speciál s polévkou", "items": [{"name": "Quesadilla krevetová", "price": "244 Kč"}]},
+    {"name": "Super speciál s polévkou", "items": [{"name": "Fajitas hovězí", "price": "334 Kč"}]},
+    {"name": "Nápoje k polednímu menu", "extra": true, "items": [
+     {"name": "Pepsi nebo Mirinda 0,25 l", "price": "29 Kč"},
+     {"name": "Staropramen 0,3 l", "price": "25 Kč"},
+     {"name": "Staropramen 0,5 l", "price": "35 Kč"}
+    ]}
+   ]
+  }
+ },
+ "img/bozskalahvice-cf105e01ee.png": {
+  "transcribed": "2026-10-06T12:35:00+02:00",
+  "title": "týdenní nabídka 5. 10. až 9. 10.",
+  "days": {
+   "2026-10-05": [
+    {"name": "Polévky", "items": [{"name": "Tomatovo-řepná", "price": "74 Kč"}]},
+    {"name": "Hlavní jídla", "items": [
+     {"name": "Nudličky z vepřové panenky v liškové omáčce, bramborové šišky", "price": "195 Kč"},
+     {"name": "Tagliatelle s citronovou ricottou, kadeřávkem a praženými semínky", "price": "185 Kč"}
+    ]}
+   ],
+   "2026-10-06": [
+    {"name": "Polévky", "items": [{"name": "Pórková Vichyssoise", "price": "74 Kč"}]},
+    {"name": "Hlavní jídla", "items": [
+     {"name": "Jamajské kuřecí stehno, dušená rýže s fazolemi", "price": "195 Kč"},
+     {"name": "Smetanový bulgur s pečenou dýní, granátovým jablkem, balkánským sýrem a rukolou", "price": "185 Kč"}
+    ]}
+   ],
+   "2026-10-07": [
+    {"name": "Polévky", "items": [{"name": "Mrkvová se zázvorem, kokosovým mlékem a černou čočkou", "price": "74 Kč"}]},
+    {"name": "Hlavní jídla", "items": [
+     {"name": "Uzbecký plov s kuřecím masem a kapary", "price": "195 Kč"},
+     {"name": "Segedínský guláš z hlívy ústřičné, houskový knedlík", "price": "185 Kč"}
+    ]}
+   ],
+   "2026-10-08": [
+    {"name": "Polévky", "items": [{"name": "Hovězí vývar se zeleninou a játrovými knedlíčky", "price": "74 Kč"}]},
+    {"name": "Hlavní jídla", "items": [
+     {"name": "Smažená rýže tom yum se zeleninou, vepřovým masem a arašídy", "price": "195 Kč"},
+     {"name": "Pikantní čočkové placky, salát s pečeným marinovaným květákem", "price": "185 Kč"}
+    ]}
+   ],
+   "2026-10-09": [
+    {"name": "Polévky", "items": [{"name": "Maďarská cibulačka se sýrem", "price": "74 Kč"}]},
+    {"name": "Hlavní jídla", "items": [
+     {"name": "Krémová polenta s trhaným hovězím masem, šípkovým džemem a rukolou", "price": "195 Kč"},
+     {"name": "Plněné palačinky špenátem a čerstvým sýrem, salát", "price": "185 Kč"}
+    ]}
+   ]
+  }
+ }
+}
