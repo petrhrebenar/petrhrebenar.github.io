@@ -111,11 +111,12 @@ const DATA="https://raw.githubusercontent.com/petrhrebenar/petrhrebenar.github.i
 /* Groups of restaurants; a restaurant without "group" in the data is in the first one. */
 const GROUPS=[["faculty","Faculty"],["nedochvilni","Nedochvilní"]];
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-/* When the data is refreshed. Keep in step with the cron line of .github/workflows/papani.yml
-   (UTC, Monday to Friday, every half hour from the first to the last run) and with the two
-   scheduled tasks (Prague time): the check that starts the workflow when GitHub's schedule
-   missed (it writes watchdog.json) and the one that turns menu images into text. */
-const RUNS_UTC=[[6,17],[9,47]], CHECKS="9:52 a 10:52", TRANSCRIBE="10:55";
+/* When the data is refreshed: a Claude scheduled task (Prague time, Monday to Friday) starts
+   the workflow .github/workflows/papani.yml, waits for it, turns new menu images into text and
+   records the run in watchdog.json. GitHub's own schedule in the workflow is only a backup. */
+const RUNS="7:50, 8:50, 9:50, 10:50 a 11:50";
+/* While the page is open it reloads the data this often (ms). */
+const RELOAD=5*60e3;
 const DAYS=["Po","Út","St","Čt","Pá"], DAYS_LONG=["pondělí","úterý","středa","čtvrtek","pátek","sobota","neděle"];
 
 const $=id=>document.getElementById(id);
@@ -129,16 +130,17 @@ const when=s=>{const d=new Date(s);return DAYS_LONG[(d.getDay()+6)%7]+" "+dm(iso
 const safeUrl=u=>/^https:\/\//.test(u||"")?u:null;
 const imgUrl=s=>/^img\/[\w.-]+$/.test(s||"")?DATA+s:safeUrl(s);
 
-let data=null, tr={}, day=null;
+/* week: Monday of the week shown (always the current one); old: the data is from an earlier week */
+let data=null, tr={}, day=null, week=null, old=false, loadedAt=0;
 let group=GROUPS.some(g=>g[0]===store.get("papani.group"))?store.get("papani.group"):GROUPS[0][0];
 
 /* Last run of the scheduled check (watchdog.json): {checked, result: fresh|ok|failed, run?} */
 function watch(w){
   const box=$("watch");
-  const txt=w&&w.checked&&!isNaN(new Date(w.checked))?{fresh:"data byla aktuální",ok:"stahování spuštěno, proběhlo",failed:"stahování spuštěno, selhalo"}[w.result]:null;
+  const txt=w&&w.checked&&!isNaN(new Date(w.checked))?{fresh:"data byla aktuální",ok:"stažení proběhlo",failed:"stažení selhalo"}[w.result]:null;
   box.hidden=!txt;box.textContent="";
   if(!txt)return;
-  box.append("kontrola "+when(w.checked)+": "+txt);
+  box.append("poslední plánované stažení "+when(w.checked)+": "+txt);
   if(w.result==="failed"&&safeUrl(w.run))box.append(" (",el("a",{href:w.run,target:"_blank",rel:"noopener"},"detail"),")");
 }
 function status(cls,txt){$("dot").className="dot"+(cls?" "+cls:"");$("statusTxt").textContent=txt}
@@ -146,6 +148,7 @@ function banner(txt,warn){const b=$("banner");b.hidden=!txt;b.textContent=txt||"
 const getJson=async f=>{const r=await fetch(DATA+f+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json()};
 
 async function load(){
+  loadedAt=Date.now();
   status("busy","načítám");
   try{
     /* transcripts.json (text versions of menu images) is optional */
@@ -158,13 +161,19 @@ async function load(){
     banner("Data se nepodařilo načíst ("+e.message+"). Větev papani-data vznikne při prvním běhu workflow „papani“ v záložce Actions.",true);
     render();return;
   }
-  const t=today(), cur=mondayOf(t);
-  const wd=(new Date(t+"T00:00").getDay()+6)%7;
-  if(!day||day<data.week||day>addDays(data.week,4))day=data.week===cur?addDays(data.week,Math.min(wd,4)):data.week;
-  const up=new Date(data.updated), fresh=iso(up)===t;
+  setWeek();
+  const fresh=iso(new Date(data.updated))===today();
   status(fresh?"on":"busy","aktualizováno "+when(data.updated));
-  banner(data.week!==cur?"Zobrazená data jsou z týdne "+dm(data.week)+" až "+dm(addDays(data.week,4))+" Nová se načítají ve všední dny dopoledne.":"",true);
   render();
+}
+
+/* The calendar always shows the current week, whatever week the data is from. */
+function setWeek(){
+  const t=today(), cur=mondayOf(t), wd=(new Date(t+"T00:00").getDay()+6)%7;
+  if(week!==cur){week=cur;day=null}
+  if(!day||day<week||day>addDays(week,4))day=addDays(week,Math.min(wd,4));
+  old=!!data&&data.week<week;
+  banner(old?"Menu na tento týden se ještě nestáhla, poslední jsou z "+when(data.updated)+". Stahují se ve všední dny v "+RUNS+".":"",true);
 }
 
 function sections(list){
@@ -202,6 +211,7 @@ function card(r){
   const pics=(r.images||[]).map(i=>({src:imgUrl(i.src),full:imgUrl(i.src)||safeUrl(i.orig),t:tr[i.src]})).filter(p=>p.src);
   const text=pics.filter(p=>p.t&&typeof p.t==="object"), raw=pics.filter(p=>!text.includes(p));
   const has=r.days||r.week||pics.length;
+  if(old)return {c:el("div",{class:"card"},head(r),el("div",{class:"empty"},"Menu na tento týden ještě nebylo staženo.")),wide:false};
   const c=el("div",{class:"card"+(raw.length?" wide":"")},head(r));
   if(r.status==="error")c.append(el("div",{class:"sub err"},"Poslední pokus o načtení webu selhal."+(has?" Níže je stav z "+(r.checked?when(r.checked):"dřívějška")+".":"")));
   else if(r.status==="stale"&&r.images)c.append(el("div",{class:"sub warn"},pics.length?"Obrázek s menu je starší než tento týden, na webu možná ještě není nové.":"Na webu se nenašel žádný obrázek s menu."));
@@ -222,7 +232,7 @@ function render(){
   $("groupSeg").replaceChildren(...GROUPS.map(([id,label])=>el("button",{type:"button",class:id===group?"on":"","aria-pressed":id===group?"true":"false",onclick:()=>{group=id;store.set("papani.group",id);render()}},label)));
   const t=today();
   for(let i=0;i<5;i++){
-    const d=addDays(data.week,i);
+    const d=addDays(week,i);
     tabs.append(el("button",{class:"tab"+(d===day?" on":"")+(d===t?" today":""),onclick:()=>{day=d;render()}},DAYS[i],el("span",{class:"n"},dm(d))));
   }
   const rs=(data.restaurants||[]).filter(r=>[].concat(r.group||GROUPS[0][0]).includes(group));
@@ -234,12 +244,12 @@ function render(){
   if(link.length)lw.append(el("h2",{},"Jen odkaz"),el("ul",{class:"links"},link.map(r=>el("li",{},el("b",{},r.name),safeUrl(r.url)?el("a",{href:r.url,target:"_blank",rel:"noopener"},"otevřít menu"):null))));
 }
 
-(function(){
-  const n=new Date();
-  const t=RUNS_UTC.map(([h,m])=>new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),h,m)).toLocaleTimeString("cs-CZ",{hour:"numeric",minute:"2-digit",timeZone:"Europe/Prague"}));
-  $("sched").textContent="menu se stahují po–pá každou půlhodinu "+t[0]+"–"+t[1]+", kontrola v "+CHECKS+", obrázková se přepisují v "+TRANSCRIBE;
-})();
+$("sched").textContent="menu se stahují po–pá v "+RUNS+", obrázková menu se hned přepíšou do textu";
 $("reloadBtn").addEventListener("click",load);
+/* Keep an open page current: reload every few minutes and when the tab comes back into view
+   (also moves the calendar on to a new day or week). */
+setInterval(()=>{if(!document.hidden)load()},RELOAD);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-loadedAt>60e3)load()});
 load();
 </script>
 </body>

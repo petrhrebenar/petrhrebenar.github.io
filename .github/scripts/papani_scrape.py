@@ -32,6 +32,7 @@ import hashlib
 import json
 import pathlib
 import re
+import socket
 import sys
 import time
 import urllib.parse
@@ -48,6 +49,18 @@ MONTHS = ["ledna", "února", "března", "dubna", "května", "června", "červenc
 
 
 # ---------- helpers ----------
+
+# GitHub runners have no IPv6 route: a site with an AAAA record could fail with
+# "Network is unreachable" when its IPv4 address was slow, so use IPv4 only.
+_getaddrinfo = socket.getaddrinfo
+
+
+def _ipv4_only(*a, **k):
+    res = _getaddrinfo(*a, **k)
+    return [r for r in res if r[0] == socket.AF_INET] or res
+
+
+socket.getaddrinfo = _ipv4_only
 
 def clean(s):
     return re.sub(r"\s+", " ", (s or "").replace("\xa0", " ")).strip()
@@ -77,12 +90,12 @@ def nearest_year(day, month, today):
     return best
 
 
-def fetch(url, binary=False, tries=2, data=None, headers=None):
+def fetch(url, binary=False, tries=3, data=None, headers=None):
     last = None
     for i in range(tries):
         try:
             req = urllib.request.Request(url, data=data, headers={"User-Agent": UA, "Accept-Language": "cs", **(headers or {})})
-            with urllib.request.urlopen(req, timeout=20) as r:
+            with urllib.request.urlopen(req, timeout=25) as r:
                 body = r.read()
                 if binary:
                     return body, r.headers.get_content_type()
@@ -219,11 +232,67 @@ def parse_bozskalahvice(html, ctx):
 
 
 def parse_kathmandu(html, ctx):
-    """A standing menu per weekday (no dates) in one table."""
+    """Dated week as schema.org Menu (JSON-LD), one section per day ("Pondělí 2026-10-12").
+    The JSON carries only the price without soup; the visible text has both
+    ("160 Kč 170 Kč"), so the second one is read from there."""
     soup = BeautifulSoup(html, "html.parser")
+    menu = None
+    for s in soup.find_all("script", type="application/ld+json"):
+        try:
+            j = json.loads(s.string or "")
+        except ValueError:
+            continue
+        for o in j if isinstance(j, list) else [j]:
+            if isinstance(o, dict) and o.get("@type") == "Menu":
+                menu = o
+    if menu is None:
+        if soup.select_one("table.poledni-menu"):
+            return parse_kathmandu_table(soup, ctx)
+        raise ValueError("menu not found")
+    for t in soup(["script", "style", "noscript"]):
+        t.decompose()
+    text, pos = clean(soup.get_text(" ")), 0
+    days = {}
+    for sec in menu.get("hasMenuSection") or []:
+        d = re.search(r"\d{4}-\d{2}-\d{2}", sec.get("name") or "")
+        if not d:
+            continue
+        soups, mains = [], []
+        for it in sec.get("hasMenuItem") or []:
+            name = clean(it.get("name"))
+            if not name:
+                continue
+            item = {"name": name, "price": ""}
+            desc = clean(re.sub(r"\s*A\s*:\s*[\d\s,]+$", "", clean(it.get("description"))))
+            if desc:
+                item["desc"] = desc
+            offer = it.get("offers") or {}
+            if isinstance(offer, list):
+                offer = offer[0] if offer else {}
+            try:
+                base = int(float(offer.get("price")))
+            except (TypeError, ValueError):
+                base = None
+            at = text.find(name, pos)
+            if at >= 0:
+                pos = at + len(name)
+            if base is None:
+                soups.append(item)
+                continue
+            m = re.compile(rf"\b{base} Kč (\d+) Kč").search(text, pos, pos + 1500) if at >= 0 else None
+            item["price"] = f"{base} / {m.group(1)} Kč" if m else f"{base} Kč"
+            mains.append(item)
+        secs = [s for s in ({"name": "Polévky", "items": soups}, {"name": "Hlavní jídla", "items": mains}) if s["items"]]
+        if secs:
+            days[d.group(0)] = secs
+    if not days:
+        raise ValueError("menu has no dated days")
+    return {"days": days}
+
+
+def parse_kathmandu_table(soup, ctx):
+    """Older template: a standing menu per weekday (no dates) in one table."""
     table = soup.select_one("table.poledni-menu")
-    if table is None:
-        raise ValueError("menu table not found")
     monday = ctx["today"] - dt.timedelta(days=ctx["today"].weekday())
     days, date, section = {}, None, None
     for tr in table.select("tbody tr"):

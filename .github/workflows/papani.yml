@@ -5,13 +5,13 @@ name: papani
 # single commit on every run, so it never grows and main stays untouched.
 
 on:
+  # The regular runs are started by a Claude scheduled task (Monday to Friday
+  # at 7:50, 8:50, 9:50, 10:50 and 11:50 Prague time) via workflow_dispatch; it
+  # then turns new menu images into text (transcripts.json) and writes
+  # watchdog.json. GitHub's own schedule below is only a backup: for this repo
+  # it starts runs hours late or not at all.
   schedule:
-    # GitHub cron is UTC: every half hour from 8:17 to 11:47 in summer, an hour
-    # earlier in winter. GitHub often starts scheduled runs late or drops them,
-    # so there are eight; a failed read keeps what an earlier run got. A Claude
-    # scheduled task also checks at 9:52 and 10:52 Prague time and starts this
-    # workflow itself when the data is older than an hour (watchdog.json).
-    - cron: "17,47 6-9 * * 1-5"
+    - cron: "17 6-10 * * 1-5"
   workflow_dispatch:
 
 permissions:
@@ -47,6 +47,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # The scheduled task may have pushed transcripts or watchdog.json
+          # while this run was scraping; take the newest ones so they survive.
+          if git clone --quiet --depth 1 --branch papani-data \
+              "https://github.com/${GITHUB_REPOSITORY}.git" latest 2>/dev/null; then
+            python - <<'PY'
+          import json, pathlib
+          new, old = pathlib.Path("data"), pathlib.Path("latest")
+          def load(p):
+              try:
+                  return json.loads(p.read_text(encoding="utf-8"))
+              except (OSError, ValueError):
+                  return None
+          tr = load(new / "transcripts.json") or {}
+          for k, v in (load(old / "transcripts.json") or {}).items():
+              if k not in tr and (new / k).is_file():
+                  tr[k] = v
+          if tr:
+              (new / "transcripts.json").write_text(json.dumps(tr, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+          wd_new, wd_old = load(new / "watchdog.json"), load(old / "watchdog.json")
+          if wd_old and (not wd_new or str(wd_old.get("checked", "")) > str(wd_new.get("checked", ""))):
+              (new / "watchdog.json").write_text(json.dumps(wd_old, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+          PY
+            rm -rf latest
+          fi
           cd data
           git init --quiet -b papani-data
           git config user.name "github-actions[bot]"
