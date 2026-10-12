@@ -1,57 +1,27 @@
 name: papani
 
-# Reads the lunch menus and publishes them as the papani-data branch
-# (menus.json + img/), which /papani/ loads. The branch is rewritten as a
-# single commit on every run, so it never grows and main stays untouched.
-
 on:
-  schedule:
-    # GitHub cron is UTC: every half hour from 8:17 to 11:47 in summer, an hour
-    # earlier in winter. GitHub often starts scheduled runs late or drops them,
-    # so there are eight; a failed read keeps what an earlier run got. A Claude
-    # scheduled task also checks at 9:52 and 10:52 Prague time and starts this
-    # workflow itself when the data is older than an hour (watchdog.json).
-    - cron: "17,47 6-9 * * 1-5"
   workflow_dispatch:
 
 permissions:
-  contents: write
-
-concurrency:
-  group: papani
-  cancel-in-progress: false
+  contents: read
 
 jobs:
-  scrape:
+  debug:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
-      - run: pip install --quiet beautifulsoup4
-
-      - name: Previous data (keeps the days Lokál has already published this week)
+      - name: Dump pages
         run: |
-          git clone --quiet --depth 1 --branch papani-data \
-            "https://github.com/${GITHUB_REPOSITORY}.git" data 2>/dev/null || mkdir -p data
-          rm -rf data/.git
-
-      - name: Scrape
-        run: python .github/scripts/papani_scrape.py --out data
-
-      - name: Publish to papani-data
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd data
-          git init --quiet -b papani-data
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit --quiet -m "papani: $(date -u +%F)"
-          git push --quiet --force \
-            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" papani-data
+          set +e
+          UA='papani/1.0 (+https://petrhrebenar.github.io/papani/)'
+          for u in https://restauracekathmandu.cz/denni-menu https://www.restauraceeverest.cz/denni-menu https://pizzeriacastello.cz/ https://lokal-dlouha.ambi.cz/menu/denni-menu; do
+            echo "=================== $u"
+            getent ahosts $(echo $u | cut -d/ -f3) | head -4
+            curl -sS -m 30 -A "$UA" -H 'Accept-Language: cs' -o page.html -w 'HTTP %{http_code} size %{size_download} ip %{remote_ip}\n' "$u"
+            curl -4 -sS -m 30 -A "$UA" -o /dev/null -w 'IPv4: HTTP %{http_code} ip %{remote_ip}\n' "$u"
+            echo "--- tables:"; grep -o '<table[^>]*>' page.html | head -5
+            echo "--- body text:"
+            python3 -c "import re,sys,html;t=open('page.html',errors='replace').read();t=re.sub(r'(?s)<(script|style)[^>]*>.*?</\1>','',t);t=re.sub(r'<[^>]+>',' ',t);t=html.unescape(re.sub(r'\s+',' ',t));i=max(0,t.lower().find('pondělí')-300);print(t[i:i+2500])"
+            echo "--- raw around menu:"; python3 -c "t=open('page.html',errors='replace').read();i=t.lower().find('pondělí');i=i if i>=0 else t.lower().find('menu');print(t[max(0,i-1500):i+2500])"
+          done
