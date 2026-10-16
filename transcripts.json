@@ -1,0 +1,320 @@
+{
+ "img/lacasablu-8dd0d4d12e.jpg": {
+  "transcribed": "2026-10-06T12:35:00+02:00",
+  "week": {
+   "label": "stálé polední menu",
+   "from": "2026-10-05",
+   "to": "2026-10-25",
+   "sections": [
+    {
+     "name": "Klasika s polévkou",
+     "items": [
+      {
+       "name": "Nachos kuřecí pro 1 os.",
+       "price": "218 Kč"
+      },
+      {
+       "name": "Quesadilla cuketa a lilek",
+       "price": "218 Kč"
+      },
+      {
+       "name": "Burrito chile con carne",
+       "price": "218 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Speciál s polévkou",
+     "items": [
+      {
+       "name": "Quesadilla krevetová",
+       "price": "244 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Super speciál s polévkou",
+     "items": [
+      {
+       "name": "Fajitas hovězí",
+       "price": "334 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Nápoje k polednímu menu",
+     "extra": true,
+     "items": [
+      {
+       "name": "Pepsi nebo Mirinda 0,25 l",
+       "price": "29 Kč"
+      },
+      {
+       "name": "Staropramen 0,3 l",
+       "price": "25 Kč"
+      },
+      {
+       "name": "Staropramen 0,5 l",
+       "price": "35 Kč"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "img/lacasablu-344fee8af6.jpg": {
+  "transcribed": "2026-10-12T10:00:00+02:00",
+  "title": "polední menu, pondělí až pátek 11:30–14:30",
+  "note": "Malá polévka k menu 19 Kč (menu 208 Kč), velká polévka k menu 39 Kč (menu 228 Kč). K polednímu menu studený čaj zdarma.",
+  "days": {
+   "2026-10-12": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Kuřecí vývar",
+       "price": ""
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Quesadilla s kachním masem",
+       "price": "189 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-13": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Kuřecí s arašídy a kokosovým mlékem",
+       "price": ""
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Tostadas s hovězím masem",
+       "price": "189 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-14": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka mexická koriandrová s masovými kuličkami",
+       "price": ""
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Burger s vepřovou panenkou a fazolkami",
+       "price": "189 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-15": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka brokolicová",
+       "price": ""
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Tacos s trhaným hovězím",
+       "price": "189 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-16": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Bramboračka",
+       "price": ""
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Niňo gordo s kuřetem",
+       "price": "189 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-17": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Sopa Tarasca Michoacana",
+       "price": ""
+      }
+     ]
+    }
+   ],
+   "2026-10-18": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Sopa Tarasca Michoacana",
+       "price": ""
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "img/bozskalahvice-2037433ced.png": {
+  "transcribed": "2026-10-12T10:00:00+02:00",
+  "title": "týdenní nabídka 12. 10. až 16. 10.",
+  "days": {
+   "2026-10-12": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Zelná s uzeným masem",
+       "price": "74 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Grilované kuřecí stripsy, lehký bramborový salát s jablky a řapíkatým celerem",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Cuketové placky s koprem, šťouchané brambory, salát",
+       "price": "185 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-13": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Japonská miso polévka s tofu a rýžovými nudlemi",
+       "price": "74 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Halušky s bryndzou, restovanou slaninou a cibulkou",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Kuličky z černé čočky v kari omáčce, chléb naan",
+       "price": "185 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-14": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Africká s batáty, cizrnou a burákovým máslem",
+       "price": "74 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Krůtí roláda se šalvějí, špenátem a sušenými rajčaty, šťouchané brambory",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Zeleninové ragú na černém pivu s ječnými kroupami",
+       "price": "185 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-15": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Gulášová s mletým masem",
+       "price": "74 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Butter chicken s mangem, basmati rýže",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Zeleninové lasagne, salát, bazalkové pesto",
+       "price": "190 Kč"
+      }
+     ]
+    }
+   ],
+   "2026-10-16": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Bramboračka s houbami",
+       "price": "74 Kč"
+      }
+     ]
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Hovězí nudličky v hořčičné omáčce, glazírovaná mrkev, pečené brambory",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Celerové řízky, bramborová kaše, salát z červeného zelí s křenem",
+       "price": "180 Kč"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
