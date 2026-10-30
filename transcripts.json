@@ -1,0 +1,138 @@
+{
+ "img/bozskalahvice-1e0e5f17a1.png": {
+  "transcribed": "2026-10-26T09:55:00+01:00",
+  "title": "týdenní nabídka 26.10.– 30.10.",
+  "days": {
+   "2026-10-26": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Celerový krém s chilli olejem a bylinkovou bagetkou",
+       "price": "74 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Kuřecí nudličky v estragonové omáčce, jasmínová rýže",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Řepné placky, pečené brambory, česnekový dip, salát",
+       "price": "180 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-10-27": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polská okurková",
+       "price": "74 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Králičí stehno na slanině, bramborová kaše",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Květáková moussaka, omáčka z pečených rajčat, salát",
+       "price": "190 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-10-28": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Podzimní minestrone",
+       "price": "74 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Masový závin z listového těsta, pečené brambory, hořčičný dip, salát",
+       "price": "190 Kč"
+      },
+      {
+       "name": "Citrónové špagety s rukolou a praženými semínky",
+       "price": "180 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-10-29": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Hrachová bylinková s krutony",
+       "price": "74 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Batátové noky s vepřovým masem, sušenými rajčaty a sýrem Braunauer",
+       "price": "195 Kč"
+      },
+      {
+       "name": "Plněné žampióny špenátem a sýrem, šťouchané brambory, řepný salát",
+       "price": "190 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-10-30": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Česnečka s vejcem a sýrem",
+       "price": "74 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Grilované bavorské klobásky, červené zelí, bramboráčky",
+       "price": "190 Kč"
+      },
+      {
+       "name": "Teplý salát z černé čočky, pečené dýně a batátů, balkánský sýr, pletýnky",
+       "price": "185 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ]
+  }
+ }
+}
