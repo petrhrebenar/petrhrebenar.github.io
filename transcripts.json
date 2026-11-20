@@ -1,0 +1,209 @@
+{
+ "img/lacasablu-f3d0a408fc.jpg": {
+  "transcribed": "2026-11-16T07:54:29+01:00",
+  "title": "polední menu",
+  "note": "Malá polévka k menu 24 Kč / Menu 218,- | Velká polévka k menu 44 Kč / Menu 238,- K polednímu menu studený čaj zdarma",
+  "days": {
+   "2026-11-16": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka zeleninová krémová",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Quesadilla s vepřovou panenkou a jalapeňos",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-17": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Česnečka",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "SVÁTEK - Menu není",
+       "price": ""
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-18": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka fazolová s kokosovým mlékem",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Chilaquiles s kuřecím masem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-19": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka rajčatová s parmezánem",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Chimichanga s kuřetem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-20": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka bramborová krémová",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Burger s hovězím masem a čedarem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-21": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka gulášová",
+       "price": ""
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-22": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka gulášová",
+       "price": ""
+      }
+     ],
+     "extra": false
+    }
+   ]
+  }
+ },
+ "img/lacasablu-543ba1b0bc.jpg": {
+  "transcribed": "2026-11-16T07:54:29+01:00",
+  "title": "polední menu 16. 11.–6. 12.",
+  "week": {
+   "from": "2026-11-16",
+   "to": "2026-12-06",
+   "sections": [
+    {
+     "name": "Klasika s polévkou",
+     "items": [
+      {
+       "name": "Nachos chile con carne pro 1 os.",
+       "price": "232 Kč"
+      },
+      {
+       "name": "Kuřecí quesadilla",
+       "price": "232 Kč"
+      },
+      {
+       "name": "Vegetariánské burrito",
+       "price": "232 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Speciál s polévkou",
+     "items": [
+      {
+       "name": "Churrasco",
+       "price": "293 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Super speciál s polévkou",
+     "items": [
+      {
+       "name": "Kuřecí fajitas",
+       "price": "333 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Nabídka nápojů k polednímu menu",
+     "items": [
+      {
+       "name": "Pepsi nebo Mirinda 0,25L",
+       "price": "29 Kč"
+      },
+      {
+       "name": "Staropramen 0,3L",
+       "price": "25 Kč"
+      },
+      {
+       "name": "Staropramen 0,5L",
+       "price": "35 Kč"
+      }
+     ],
+     "extra": true
+    }
+   ]
+  }
+ }
+}

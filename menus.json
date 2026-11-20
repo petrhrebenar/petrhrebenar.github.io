@@ -1,0 +1,2032 @@
+{
+ "updated": "2026-11-20T16:30:01+01:00",
+ "week": "2026-11-16",
+ "restaurants": [
+  {
+   "id": "kolkovna",
+   "name": "Kolkovna (V Kolkovně)",
+   "url": "https://vkolkovne.kolkovna.cz/",
+   "group": "faculty",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Hovězí vývar s masem a domácím drobením",
+        "price": "55 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Míchaný zeleninový salát s vepř.plátky sous vide, křen. dresing, toast",
+        "price": "229 Kč"
+       },
+       {
+        "name": "Pikantní nudličky z panenky se zeleninou a sojovou om., jasmín.rýže",
+        "price": "219 Kč"
+       },
+       {
+        "name": "Smažený uzený sýr, vařené brambory, tatarská omáčka 150 g",
+        "price": "229 Kč"
+       },
+       {
+        "name": "Dančí plec na brusinkách s bramborovo škvarkovými plackami",
+        "price": "289 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-17": [
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Dančí plec na brusinkách s bramborovo škvarkovými plackami",
+        "price": "289 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí kaldoun se zeleninou a těstovinou 0,33 l",
+        "price": "55 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Caesar salát s kuřecími stripsy, parmazán, pražená slanina 150 g",
+        "price": "229 Kč"
+       },
+       {
+        "name": "Hovězí pupek, mačkaný brambor, BBQ omáčka",
+        "price": "239 Kč"
+       },
+       {
+        "name": "Presovaný vepřový bok, restované strapačky, omáčka z peč. zelí 180 g",
+        "price": "229 Kč"
+       },
+       {
+        "name": "Dančí plec na brusinkách s bramborovo škvarkovými plackami",
+        "price": "289 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Lososový krém",
+        "price": "55 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Salát s kuř. masem, slaninou, vejcem 63°, ředkvičkami, hořčičný dresink",
+        "price": "219 Kč"
+       },
+       {
+        "name": "Chilli con Carne z vepřové panenky s jasmínovou rýží 150 g",
+        "price": "229 Kč"
+       },
+       {
+        "name": "Bramborové noky s lososem, tomatovou omáčkou a basalkovým pestem 80 g",
+        "price": "229 Kč"
+       },
+       {
+        "name": "Dančí plec na brusinkách s bramborovo škvarkovými plackami",
+        "price": "289 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Bílá zelná polévka s uzeným masem a bramborami",
+        "price": "55 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Gazdovský salát s pošírovaným vejcem, bagetka",
+        "price": "219 Kč"
+       },
+       {
+        "name": "Italské dýňové rizoto, pomalu pečený hovězí jazyk, rukola",
+        "price": "239 Kč"
+       },
+       {
+        "name": "Hovězí guláš s čerstvým křenem, bramboráčky 150 g",
+        "price": "219 Kč"
+       },
+       {
+        "name": "Dančí plec na brusinkách s bramborovo škvarkovými plackami",
+        "price": "289 Kč"
+       }
+      ]
+     }
+    ]
+   },
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "castello",
+   "name": "Pizzeria Castello",
+   "url": "https://pizzeriacastello.cz/",
+   "group": "faculty",
+   "week": {
+    "sections": [
+     {
+      "name": "",
+      "items": [
+       {
+        "name": "Zelná s bramborem",
+        "price": "49 Kč"
+       },
+       {
+        "name": "Grilovaný hermelín s vařeným bramborem a brusinkovou majonézou",
+        "price": "169 Kč"
+       },
+       {
+        "name": "Penne all’ amatriciana se slaninou, pikantní tomatovou omáčkou a sýrem Grana padano",
+        "price": "189 Kč"
+       },
+       {
+        "name": "Hovězí líčka na červeném víně s kroketami",
+        "price": "209 Kč"
+       },
+       {
+        "name": "Rizoto s kuřecím masem, zeleninou, strouhaným sýrem a kyselou okurkou",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Pizza Mexicana - tomato, mozzarella, italský salám Spianata, červená cibule, zelené fazolky, chilli papričky",
+        "price": "199 Kč"
+       },
+       {
+        "name": "Pizza Spinaci - smetana, mozzarella,slanina, špenát",
+        "price": "189 Kč"
+       },
+       {
+        "name": "Pizza Primavera - tomato, mozzarella, olivy, čerstvá rajčata, rukola",
+        "price": "189 Kč"
+       }
+      ]
+     }
+    ],
+    "from": "2026-11-18",
+    "to": "2026-11-20"
+   },
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "lokal",
+   "name": "Lokál Dlouhááá",
+   "url": "https://lokal-dlouha.ambi.cz/menu/denni-menu",
+   "group": "faculty",
+   "note": "jeden student má slevu 20 % na až 2 jídla",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Předkrmy",
+      "items": [
+       {
+        "name": "Pražská šunka se smetanovým křenem, 100 g",
+        "price": "165 Kč"
+       },
+       {
+        "name": "Houbové pečenáče, 100 g",
+        "price": "145 Kč"
+       },
+       {
+        "name": "Matesy z kapra, 100 g",
+        "price": "169 Kč"
+       },
+       {
+        "name": "Variace párků se smetanovým křenem a hořčicí, 3 ks",
+        "price": "169 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Slepičí vývar s celestýnskými nudlemi",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Kulajda s houbami",
+        "price": "79 Kč"
+       },
+       {
+        "name": "Husí kaldoun s nudlemi",
+        "price": "75 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Speciality Lokálu",
+      "items": [
+       {
+        "name": "Smažený řemeslný eidam z farmy Struhy, tatarka, brambory vař. ve slupce, 150 g",
+        "price": "335 Kč"
+       },
+       {
+        "name": "Řízek z vepřové kýty smažený na másle, bramborový salát, 180 g",
+        "price": "365 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Hovězí uzený jazyk s křenovou omáčkou, houskové knedlíky, 100 g",
+        "price": "239 Kč"
+       },
+       {
+        "name": "Španělský ptáček, dušená rýže, 150 g",
+        "price": "265 Kč"
+       },
+       {
+        "name": "Buřtguláš, chleba 33, 100 g",
+        "price": "209 Kč"
+       },
+       {
+        "name": "Vepřová plec dušená na kmíně, dušená rýže, 100 g",
+        "price": "209 Kč"
+       },
+       {
+        "name": "Holandský sekaný řízek, bramborová kaše, 140 g",
+        "price": "245 Kč"
+       },
+       {
+        "name": "Zapečené šunkofleky s naší okurkou, 300 g",
+        "price": "215 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Saláty",
+      "items": [
+       {
+        "name": "Zelný s křenem",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Salát z červené řepy",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Šopský salát",
+        "price": "209 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Dezerty",
+      "items": [
+       {
+        "name": "Větrník z Myšáka",
+        "price": "135 Kč"
+       },
+       {
+        "name": "Žloutkový věneček z Myšáka",
+        "price": "115 Kč"
+       },
+       {
+        "name": "Rakvička se šlehačkou",
+        "price": "69 Kč"
+       }
+      ],
+      "extra": true
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Předkrmy",
+      "items": [
+       {
+        "name": "Pražská šunka se smetanovým křenem, 100 g",
+        "price": "165 Kč"
+       },
+       {
+        "name": "Naše škvarková pomazánka, 100 g",
+        "price": "119 Kč"
+       },
+       {
+        "name": "Houbové pečenáče, 100 g",
+        "price": "145 Kč"
+       },
+       {
+        "name": "Variace párků se smetanovým křenem a hořčicí, 3 ks",
+        "price": "169 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Slepičí polévka s kapáním",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Frankfurtská s párkem",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Dršťková polévka",
+        "price": "79 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Speciality Lokálu",
+      "items": [
+       {
+        "name": "Smažený řemeslný eidam z farmy Struhy, tatarka, brambory vař. ve slupce, 150 g",
+        "price": "335 Kč"
+       },
+       {
+        "name": "Řízek z vepřové kýty smažený na másle, bramborový salát, 180 g",
+        "price": "365 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Vařený hovězí krk s koprovou omáčkou, houskové knedlíky, 100 g",
+        "price": "235 Kč"
+       },
+       {
+        "name": "Guláš z hovězí kližky, mix knedlíků, 100 g",
+        "price": "239 Kč"
+       },
+       {
+        "name": "Vepřový závitek Záhorák, brambory vař. ve slupce, 120 g",
+        "price": "215 Kč"
+       },
+       {
+        "name": "Smažený karbanátek, bramborová kaše, 140 g",
+        "price": "229 Kč"
+       },
+       {
+        "name": "Kuřecí rizoto se sýrem a naší okurkou, 250 g",
+        "price": "229 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Saláty",
+      "items": [
+       {
+        "name": "Salát z červené řepy",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Zelný s křenem",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Šopský salát",
+        "price": "209 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Dezerty",
+      "items": [
+       {
+        "name": "Větrník z Myšáka",
+        "price": "135 Kč"
+       },
+       {
+        "name": "Rakvička se šlehačkou",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Žloutkový věneček z Myšáka",
+        "price": "115 Kč"
+       }
+      ],
+      "extra": true
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Předkrmy",
+      "items": [
+       {
+        "name": "Pražská šunka se smetanovým křenem, 100 g",
+        "price": "165 Kč"
+       },
+       {
+        "name": "Naše škvarková pomazánka, 100 g",
+        "price": "119 Kč"
+       },
+       {
+        "name": "Matesy z kapra, 100 g",
+        "price": "169 Kč"
+       },
+       {
+        "name": "Variace párků se smetanovým křenem a hořčicí, 3 ks",
+        "price": "169 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Hovězí vývar s kapáním",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Dýňová polévka",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Dršťková polévka",
+        "price": "79 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Speciality Lokálu",
+      "items": [
+       {
+        "name": "Smažený řemeslný eidam z farmy Struhy, tatarka, brambory vař. ve slupce, 150 g",
+        "price": "335 Kč"
+       },
+       {
+        "name": "Řízek z vepřové kýty smažený na másle, bramborový salát, 180 g",
+        "price": "365 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Hovězí srdce na slanině, dušená rýže, 150 g",
+        "price": "225 Kč"
+       },
+       {
+        "name": "Dušené kuře z Rašovic na paprice, kolínka, 100 g",
+        "price": "245 Kč"
+       },
+       {
+        "name": "Hovězí hrudí na česneku, špenát, bramborové knedlíky, 100 g",
+        "price": "249 Kč"
+       },
+       {
+        "name": "Sekaná svíčková, houskové knedlíky, 150 g",
+        "price": "215 Kč"
+       },
+       {
+        "name": "Špenát se sázeným vejcem a vařeným bramborem",
+        "price": "209 Kč"
+       },
+       {
+        "name": "Palačinky s marmeládou",
+        "price": "199 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Saláty",
+      "items": [
+       {
+        "name": "Zelný s křenem",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Salát z červené řepy",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Šopský salát",
+        "price": "209 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Dezerty",
+      "items": [
+       {
+        "name": "Větrník z Myšáka",
+        "price": "135 Kč"
+       },
+       {
+        "name": "Žloutkový věneček z Myšáka",
+        "price": "115 Kč"
+       },
+       {
+        "name": "Palačinka s marmeládou",
+        "price": "89 Kč"
+       },
+       {
+        "name": "Rakvička se šlehačkou",
+        "price": "69 Kč"
+       }
+      ],
+      "extra": true
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Předkrmy",
+      "items": [
+       {
+        "name": "Pražská šunka se smetanovým křenem, 100 g",
+        "price": "165 Kč"
+       },
+       {
+        "name": "Tlačenka s cibulí a octovou zálivkou, 130 g",
+        "price": "129 Kč"
+       },
+       {
+        "name": "Naše škvarková pomazánka, 100 g",
+        "price": "119 Kč"
+       },
+       {
+        "name": "Variace párků se smetanovým křenem a hořčicí, 3 ks",
+        "price": "169 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Slepičí vývar s nudlemi",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Fazolová polévka s klobásou",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Dršťková polévka",
+        "price": "79 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Speciality Lokálu",
+      "items": [
+       {
+        "name": "Smažený řemeslný eidam z farmy Struhy, tatarka, brambory vař. ve slupce, 150 g",
+        "price": "335 Kč"
+       },
+       {
+        "name": "Řízek z vepřové kýty smažený na másle, bramborový salát, 180 g",
+        "price": "365 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Vařený hovězí krk s houbovou omáčkou, dušená rýže, 100 g",
+        "price": "235 Kč"
+       },
+       {
+        "name": "Segedínský guláš, houskové knedlíky, 100 g",
+        "price": "225 Kč"
+       },
+       {
+        "name": "Vepřové výpečky, dušené hlávkové zelí, mix knedlíků, 120 g",
+        "price": "235 Kč"
+       },
+       {
+        "name": "Hovězí ledvinky dušené na cibulce, dušená rýže, 150 g",
+        "price": "225 Kč"
+       },
+       {
+        "name": "Pečené kuřecí stehno z Rašovic, bramborová kaše, 350 g",
+        "price": "259 Kč"
+       },
+       {
+        "name": "Hrachová kaše s uzenou krkovicí, 120 g",
+        "price": "215 Kč"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Saláty",
+      "items": [
+       {
+        "name": "Zelný s křenem",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Salát z červené řepy",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Šopský salát",
+        "price": "209 Kč"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Dezerty",
+      "items": [
+       {
+        "name": "Rakvička se šlehačkou",
+        "price": "69 Kč"
+       },
+       {
+        "name": "Žloutkový věneček z Myšáka",
+        "price": "115 Kč"
+       },
+       {
+        "name": "Větrník z Myšáka",
+        "price": "135 Kč"
+       }
+      ],
+      "extra": true
+     }
+    ]
+   },
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "lacasablu",
+   "name": "La Casa Blů",
+   "url": "https://lacasablu.cz/",
+   "group": "faculty",
+   "images": [
+    {
+     "orig": "https://i2.wp.com/lacasablu.cz/wp-content/uploads/2026/11/MENU_post.jpg-7.jpeg?fit=2250%2C2813&ssl=1",
+     "src": "img/lacasablu-f3d0a408fc.jpg",
+     "month": "2026-11"
+    },
+    {
+     "orig": "https://i2.wp.com/lacasablu.cz/wp-content/uploads/2026/11/MENU_post4.jpg-10.jpeg?fit=2250%2C2813&ssl=1",
+     "src": "img/lacasablu-543ba1b0bc.jpg",
+     "month": "2026-11"
+    }
+   ],
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "bozskalahvice",
+   "name": "Božská lahvice",
+   "url": "https://www.bozskalahvice.cz/",
+   "group": "faculty",
+   "images": [
+    {
+     "orig": "https://www.bozskalahvice.cz/fotky844/slider/1793899703_listopad-2026-mobil.jpg",
+     "src": "img/bozskalahvice-dec5f44d68.jpg"
+    },
+    {
+     "orig": "https://www.bozskalahvice.cz/fotky844/slider/1793899703_listopad-2026-web.jpg",
+     "src": "img/bozskalahvice-e8a2046833.jpg"
+    },
+    {
+     "orig": "https://www.bozskalahvice.cz/fotky844/slider/1793901376_obedove-menu-mobil.jpg",
+     "src": "img/bozskalahvice-59aaf2f840.jpg"
+    },
+    {
+     "orig": "https://www.bozskalahvice.cz/fotky844/slider/1793901376_obedove-menu-web.jpg",
+     "src": "img/bozskalahvice-326fd94308.jpg"
+    },
+    {
+     "orig": "https://www.bozskalahvice.cz/fotky844/slider/1793904343_2026-11-05_19-37-07x.jpg",
+     "src": "img/bozskalahvice-a06632f912.jpg"
+    }
+   ],
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "kathmandu",
+   "name": "Kathmandu",
+   "url": "https://restauracekathmandu.cz/denni-menu",
+   "group": [
+    "faculty",
+    "nedochvilni"
+   ],
+   "note": "ceny bez polévky / s polévkou",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "10 Kč",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "čočkova polivka",
+        "price": "10 Kč",
+        "desc": "Dal soup"
+       },
+       {
+        "name": "kureci methi",
+        "price": "160 Kč",
+        "desc": "(kuřecí kostky v jemně kořeněné omáčce)"
+       },
+       {
+        "name": "Vepřové Vindaloo",
+        "price": "160 Kč",
+        "desc": "vařené kousky vepřového masa v jemné rajčatové omáčce, s pastou z kešu ořechů a mangovým pyré, obohacené kořením s výraznou chutí"
+       },
+       {
+        "name": "Chana Masala",
+        "price": "160 Kč",
+        "desc": "ochucená cizrna vařenáv tomatovo-cibulovém vývaru)"
+       },
+       {
+        "name": "Kathmandu mix thali 3,4,5",
+        "price": "180 Kč",
+        "desc": "Kathmandu mix thali from 3,4,5"
+       }
+      ]
+     }
+    ],
+    "2026-11-17": [
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "10 Kč",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "fazolová polivka",
+        "price": "10 Kč",
+        "desc": "Bean soup"
+       },
+       {
+        "name": "Kuřecí Tikka",
+        "price": "160 Kč",
+        "desc": "(ostře kořeněné kuřecí kostky)"
+       },
+       {
+        "name": "Vepřové Kari",
+        "price": "160 Kč",
+        "desc": "vepřové kostky v kari omáčce)"
+       },
+       {
+        "name": "Dal Makni",
+        "price": "160 Kč",
+        "desc": "výběrová žlutá čočka vařená s cibulkou, rajčaty a kmínem, dochucená česnekem a zeleným koriandrem."
+       },
+       {
+        "name": "kathmandu mix thali 3,4,5",
+        "price": "180 Kč",
+        "desc": "kathmandu mix thali from 3,4,5"
+       }
+      ]
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "10 Kč",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Rajčatová polévka",
+        "price": "10 Kč",
+        "desc": "rajčatový krém se smetanou a indickým strouhaným sýrem"
+       },
+       {
+        "name": "Kuřecí Tikka Masala",
+        "price": "160 Kč",
+        "desc": "Kuřecí Tikka Masala je nejpopulárnější indické jídlo na světě a také skoro národní jídlo v Anglii. Kuřecí kousky se vaří s rajčaty, cibulí, pastou z kešu ořechů, a smetanou, k dochucení se používá zelený kardamon, hřebíček, bobkový list, garam masala a kašmírově červené chilli (používá se pro barvu a chuť)."
+       },
+       {
+        "name": "Vepřové Mango",
+        "price": "160 Kč",
+        "desc": "vařené kousky vepřového masa v jemné rajčatové omáčce, s pastou z kešu ořechů a mangovým pyré, obohacené kořením s výraznou chutí"
+       },
+       {
+        "name": "Paneer Pasanda",
+        "price": "160 Kč",
+        "desc": "tofu sýr vařený s rajčaty a pastou z kešu ořechů, vývar je dochucen smetanou a máslem"
+       },
+       {
+        "name": "kathmandu mix thali3,4,5",
+        "price": "180 Kč",
+        "desc": "Kathmandu mix thali 3,4,5"
+       }
+      ]
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kathmandu mix thali4,5,6",
+        "price": "",
+        "desc": "Kathmandu mix thali from 4,5,6"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "10 Kč",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Čočkova polivka",
+        "price": "10 Kč",
+        "desc": "Dal soup"
+       },
+       {
+        "name": "Kuřecí Vindaloo",
+        "price": "160 Kč",
+        "desc": "Vindaloo je jídlo, které pochází od Indů z Portugalska. Velmi pálivý pokrm s ostrým kořením, octem a rajčaty, má sladko-kyselou chuť. (ostrost pokrmu si můžete zvolit - od jemně pálivého, přes pálivý až velmi pálivý)"
+       },
+       {
+        "name": "Vepřové Mandras",
+        "price": "160 Kč",
+        "desc": "Tento pokrm je velmi oblíbený v jižní Indii. Bohatá chuť vepřového masa připravená z chilly, tamarindu, rajčat a šťávy z cibule. (pálivost pokrmu si můžete zvolit - od jemně pálivého, přes pálivé až velmi pálivé)"
+       },
+       {
+        "name": "ryma masala",
+        "price": "160 Kč",
+        "desc": "fazole v mirnépaliva omačé"
+       }
+      ]
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "10 Kč",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Fazolová polivka",
+        "price": "10 Kč",
+        "desc": "Bean soup"
+       },
+       {
+        "name": "Máslové kuře",
+        "price": "160 Kč",
+        "desc": "Vykostěné kousky kuřeře (tikka) v krémové rajčatové omáčce, s pastou z kešu ořechu, ochucené s na slunci sušeným fenugreekem, zázvorem, kardamonem, dochucené máslem a smetanou"
+       },
+       {
+        "name": "Botti Masala",
+        "price": "160 Kč",
+        "desc": "masový mix (kuřecí, jehněčí a vepřové) marinované v zázvoru, česneku, koriandru a bylinkách, zarolované do válečků a restované v tandori kotli, pak se vaří s rajčaty, cibulí, pastou z kešu ořechů, dále pak kousky papriky, cibule a zázvoru."
+       },
+       {
+        "name": "Zeleninový mix",
+        "price": "160 Kč",
+        "desc": "mix čerstvé zeleniny v tomatovo-cibulovém vývaru s vybraným kořením, zázvorem a koriandrem"
+       },
+       {
+        "name": "Kathmandu mix thali 3,4,5",
+        "price": "180 Kč",
+        "desc": "Kathmandu mix thali from 3,4,5"
+       }
+      ]
+     }
+    ]
+   },
+   "checked": "2026-11-20T08:51:32+01:00",
+   "status": "error",
+   "error": "ValueError: menu has no dated days"
+  },
+  {
+   "id": "uparlamentu",
+   "name": "U Parlamentu",
+   "url": "https://uparlamentu.cz/",
+   "group": "faculty",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Žampionová polévka s bramborem",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Hamburská vepřová plec, houskové knedlíky",
+        "price": "169 Kč"
+       },
+       {
+        "name": "Kuřecí supreme se šťouchanými brambory, bylinkové máslo",
+        "price": "179 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí vývar s celestýnskými nudlemi",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Domácí sekaná s bramborovou kaší, okurkový salát",
+        "price": "169 Kč"
+       },
+       {
+        "name": "Králík pečený na slanině, kysané zelí, bramborové knedlíky s cibulkou",
+        "price": "179 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Špenátový krém s krutony",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Pečené kuřecí stehno, rýže, nakládaná zelenina",
+        "price": "169 Kč"
+       },
+       {
+        "name": "Hovězí pečeně s rajskou omáčkou, houskové knedlíky",
+        "price": "179 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Hrachová polévka s klobásou",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Smažený květák, pažitkové brambory, tatarská omáčka",
+        "price": "169 Kč"
+       },
+       {
+        "name": "Zvěřinový guláš, žemlové knedlíky",
+        "price": "179 Kč"
+       }
+      ]
+     }
+    ]
+   },
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "mensa",
+   "name": "Menza Právnická",
+   "url": "https://kam-septim-fe.is.cuni.cz/menu?canteen=11&view=week",
+   "group": "faculty",
+   "note": "ceny běžná / studenti",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Drůbeží vývar s masem a nudlemi",
+        "price": "25 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Čočkový kotlík, chléb (vegan)",
+        "price": "128 / 80,04 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Polévka zeleninová s praženou krupicí",
+        "price": "25 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Aljašská treska na rajčatech, bylinkách s petrželkou, brambory vařené",
+        "price": "154 / 116,04 Kč"
+       },
+       {
+        "name": "Srbské vepřové rizoto sypané sýrem, červená řepa sterilovaná",
+        "price": "143 / 105,04 Kč"
+       },
+       {
+        "name": "Zeleninové ratatouille s červenými fazolemi, pita chléb (vegan)",
+        "price": "144 / 106,04 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Polévka zelná s bramborem",
+        "price": "25 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Vepřová plec na smetaně, houskový knedlík",
+        "price": "131 / 83,04 Kč"
+       },
+       {
+        "name": "Penne Pollo Spinaci s kuřecím masem",
+        "price": "149 / 111,04 Kč"
+       },
+       {
+        "name": "Zapečené bramborové noky s dýní a cizrnou (vegetarián)",
+        "price": "141 / 103,04 Kč"
+       },
+       {
+        "name": "Smažený sýr gouda VEGAN, vařené brambory, vegan tatarská omáčka (vegan)",
+        "price": "149 / 111,04 Kč"
+       },
+       {
+        "name": "Srnčí ragú na víně, karlovarské knedlíky (minutka)",
+        "price": "163 / 125,04 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Hrstková polévka",
+        "price": "25 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Plněný paprikový lusk přírodní, vařené brambory",
+        "price": "137 / 89,04 Kč"
+       },
+       {
+        "name": "Falafel s míchaným salátem, 1/2 smažené hranolky, vegan tatarská omáčka (vegan)",
+        "price": "149 / 111,04 Kč"
+       },
+       {
+        "name": "Wrap s BBQ omáčkou a pečeným kuřecím stehenním masem a ledovým salátem (minutka)",
+        "price": "152 / 114,04 Kč"
+       }
+      ]
+     }
+    ]
+   },
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "vinohradskyparlament",
+   "name": "Vinohradský parlament",
+   "url": "https://www.vinohradskyparlament.cz/",
+   "group": "nedochvilni",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Gulášovka",
+        "price": "47 Kč",
+        "desc": "tradiční polévka z hovězího krku, brambor, mleté papriky a koření"
+       },
+       {
+        "name": "Květáková s vejcem",
+        "price": "46 Kč",
+        "desc": "polévka z kuřecího vývaru, květáku a zašlehaných vajec"
+       },
+       {
+        "name": "Slepičí polévka s nudlemi",
+        "price": "45 Kč",
+        "desc": "silný vývar z masitých slepic s masem, zeleninou, vlasovými nudlemi a sekanou petrželovou natí"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Segedínský guláš",
+        "price": "165 Kč",
+        "desc": "guláš z vepřového ramínka, kysaného zelí a mleté papriky, podávaný s domácím houskovým knedlíkem"
+       },
+       {
+        "name": "Kuřecí rizoto",
+        "price": "165 Kč",
+        "desc": "dušená výběrová rýže s trhaným kuřetem, cibulkou, hráškem, kukuřicí a karotkou podávaná s kyselou okurkou a strouhaným sýrem"
+       },
+       {
+        "name": "Grilovaná kachna",
+        "price": "185 Kč",
+        "desc": "v celku pečená kachní prsa s rozmarýnem, podávaná s černou čočkou, hořčicovou omáčkou a pečenou červenou cibulí"
+       },
+       {
+        "name": "Vepřový ořech po burgundsku",
+        "price": "165 Kč",
+        "desc": "dušené kostky vepřového ořechu v omáčce z červeného vína, podávané s bramborovou kaší a restovanou kořenovou zeleninou"
+       },
+       {
+        "name": "Znojemský guláš z divočáka",
+        "price": "175 Kč",
+        "desc": "dušené kostky divočáka v silném cibulovém základu s restovanými nudličkami okurky, podávané s pečenou výběrovou rýží s cibulí a hřebíčkem"
+       },
+       {
+        "name": "Salát se grilovanou panenkou",
+        "price": "155 Kč",
+        "desc": "trhané salátové listy s baby špenátem, dýní a grilovanou panenkou, podávané s hořčicovou zálivkou, chlebovými krutony a čerstvým pečivem"
+       },
+       {
+        "name": "Smažená krkovice z vepříka duroc",
+        "price": "165 Kč",
+        "desc": "řízek z výběrové vepřové krkovice, podávaný s majonézovým bramborovým salátem a citronem"
+       },
+       {
+        "name": "Svatomartinské husí stehno",
+        "price": "599 Kč",
+        "desc": "konfitované husí stehno v sádle s kmínem a bylinkami, hlávkové červené zelí, přírodní šťáva, domácí houskový a bramborový knedlík a cibulka v sádle"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Knedlíkárna",
+      "items": [
+       {
+        "name": "Škvarkový knedlík s konfitovanou husou",
+        "price": "389 Kč",
+        "desc": "bramborový knedlík se škvarky plněný konfitovanou husou ve vlastní šťávě, dušené kysané červené zelí, karamelizovaný rakytník a ořechová drobenka"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Nejen moučníky",
+      "items": [
+       {
+        "name": "Indián",
+        "price": "55 Kč",
+        "desc": "domácí indián s čokoládovou polevou"
+       },
+       {
+        "name": "Šopský salát",
+        "price": "45 Kč",
+        "desc": "malý zeleninový salát s balkánským sýrem"
+       }
+      ],
+      "extra": true
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Frankfurtská",
+        "price": "47 Kč",
+        "desc": "polévka z brambor, párku, mleté papriky a smetany"
+       },
+       {
+        "name": "Česnekový krém",
+        "price": "46 Kč",
+        "desc": "lehce zahuštěná polévka z mladého česneku se smetanou a opečenou houskou"
+       },
+       {
+        "name": "Kuřecí vývar",
+        "price": "45 Kč",
+        "desc": "silný kuřecí vývar s masem, zeleninou, vaječným kapáním a sekanou petrželovou natí"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Hovězí na pepři",
+        "price": "185 Kč",
+        "desc": "kostky hovězího ořechu v hnědé omáčce s černým pepřem, podávané s dušeným špenátem a domácím bramborovým knedlíkem s cibulkou"
+       },
+       {
+        "name": "Kuřecí játra na cibulce",
+        "price": "165 Kč",
+        "desc": "dušená kuřecí játra na slanině, podávaná s pečenou výběrovou rýží s cibulí a hřebíčkem"
+       },
+       {
+        "name": "Pečený kuřecí karbanátek",
+        "price": "165 Kč",
+        "desc": "pečené placky z mletého kuřete s kurkumou, naťovou cibulkou a sýrem, podávané s mačkaným bramborem a okurkovým jogurtem"
+       },
+       {
+        "name": "Smažená treska",
+        "price": "165 Kč",
+        "desc": "smažená treska v trojobalu, podávaná s bramborovou kaší a domácí tatarskou omáčkou"
+       },
+       {
+        "name": "Salát s kachnou",
+        "price": "155 Kč",
+        "desc": "trhané salátové listy s pečenou paprikou, cherry rajčaty a kachním prsem, podávané s jablečnou zálivkou, chlebovými krutony a čerstvým pečivem"
+       },
+       {
+        "name": "Šunkofleky",
+        "price": "165 Kč",
+        "desc": "zapečené fleky s šunkou od kosti, vejcem a mlékem, podávané s kyselou okurkou"
+       },
+       {
+        "name": "Karlovarský guláš",
+        "price": "165 Kč",
+        "desc": "guláš z vepřového ramínka v silném cibulovém základu s kořením a smetanou, podávaný s karlovarským knedlíkem a čerstvou cibulí"
+       },
+       {
+        "name": "Vepřová panenka",
+        "price": "175 Kč",
+        "desc": "v celku pečená vepřová panenka, krémová pepřová omáčka, pečené bramborové čtvrtky a fazolky na česneku"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Nejen moučníky",
+      "items": [
+       {
+        "name": "Malinová tartaletka",
+        "price": "55 Kč",
+        "desc": "domácí tartaletka s krémem a malinami z naší cukrárny"
+       },
+       {
+        "name": "Zelný salát",
+        "price": "45 Kč",
+        "desc": "sladko-kyselé krouhané zelí s feferonkou"
+       }
+      ],
+      "extra": true
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Zelná s klobásou",
+        "price": "47 Kč",
+        "desc": "lehce zahuštěná polévka z kysaného zelí, brambor, mleté papriky a klobásy"
+       },
+       {
+        "name": "Žampiónový krém",
+        "price": "46 Kč",
+        "desc": "Krémová polévka z čerstvých žampiónů s opečenou houskou"
+       },
+       {
+        "name": "Kuřecí vývar s žemlovým knedlíčkem",
+        "price": "45 Kč",
+        "desc": "silný kuřecí vývar s žemlovým knedlíčkem, zeleninou a sekanou petrželovou natí"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Husí rizoto",
+        "price": "175 Kč",
+        "desc": "pečená výběrová rýže s trhanou husou, cibulkou, česnekem, hráškem a černým pepřem, kyselá okurka a strouhaný sýr"
+       },
+       {
+        "name": "Hovězí cikánská pečeně",
+        "price": "185 Kč",
+        "desc": "dušená hovězí pečeně v omáčce s restovanou zeleninou, podávaná s pečenou výběrovou rýží s cibulí a hřebíčkem"
+       },
+       {
+        "name": "Telecí máslový řízek",
+        "price": "165 Kč",
+        "desc": "pečený máslový řízek z telecího a vepřového masa, podávaný s vařeným opečeným bramborem, přírodní šťávou a malým okurkovým salátem"
+       },
+       {
+        "name": "Vepřové výpečky",
+        "price": "165 Kč",
+        "desc": "pečené kostky vepřové plece s česnekem a kmínem, šťáva z výpeku, dušený špenát, bramborové šišky a křupavá cibulka"
+       },
+       {
+        "name": "Kuřecí roláda",
+        "price": "165 Kč",
+        "desc": "pečená kuřecí roláda s žemlovou nádivkou, podávaná s mléčnou bramborovou kaší, přírodní šťávou a dušeným hráškem"
+       },
+       {
+        "name": "Kuře v kukuřici",
+        "price": "165 Kč",
+        "desc": "smažený řízek z kuřete v kukuřičné strouhance, podávaný s mačkaným bramborem, citronem a rajčatovým salátem s cibulkou"
+       },
+       {
+        "name": "Daněk na smetaně",
+        "price": "175 Kč",
+        "desc": "ragú z daňka s krémovou omáčkou z kořenové zeleniny a koření, domácí houskový knedlík a brusinky"
+       },
+       {
+        "name": "Salát s hermelínem",
+        "price": "155 Kč",
+        "desc": "trhané salátové listy s keříkovými rajčaty, kapií a zálivkou z jablečného octa, podávané s grilovaným sýrem, krutony a čerstvým pečivem"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Nejen moučníky",
+      "items": [
+       {
+        "name": "Pistáciový věneček",
+        "price": "55 Kč",
+        "desc": "domácí věneček s pistáciovým krémem"
+       },
+       {
+        "name": "Mrkvový salát",
+        "price": "45 Kč",
+        "desc": "strouhaná mrkev s citronem a jablky"
+       }
+      ],
+      "extra": true
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Bramboračka",
+        "price": "47 Kč",
+        "desc": "tradiční polévka z brambor, kořenové zeleniny, hub a koření"
+       },
+       {
+        "name": "Hráškový krém",
+        "price": "46 Kč",
+        "desc": "krémová polévka ze zeleného hrášku s opečenou houskou"
+       },
+       {
+        "name": "Slepičí vývar s játrovým knedlíčkem",
+        "price": "45 Kč",
+        "desc": "silný slepičí vývar se zeleninou, játrovým knedlíčkem a petrželovou natí"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Hovězí s koprovkou",
+        "price": "185 Kč",
+        "desc": "dušená hovězí kulatá plec s krémovou omáčkou z čerstvého kopru, podávaná s domácím houskovým knedlíkem"
+       },
+       {
+        "name": "Krůtí ptáček v rozletu",
+        "price": "165 Kč",
+        "desc": "Kostky krůtích prsou v hnědé omáčce s okurkou, uzeninou a vejcem, podávané s výběrovou rýží s cibulí a hřebíčkem"
+       },
+       {
+        "name": "Francouzské brambory",
+        "price": "165 Kč",
+        "desc": "vařené brambory s cibulkou a uzeným masem, zapečené šlehaným vejcem s mlékem, podávané s nakládanou červenou řepou"
+       },
+       {
+        "name": "Salát se smaženým kuřetem",
+        "price": "155 Kč",
+        "desc": "salátové listy s polníčkem, vařenou zelenou čočkou, cherry rajčaty a smaženým kuřetem, podávaný se zálivkou z vinného octa, chlebovými krutony a čerstvým pečivem"
+       },
+       {
+        "name": "Smažená krůta v panku",
+        "price": "175 Kč",
+        "desc": "smažená krůtí prsa v panko strouhance, podávaná s bramborovou kaší s máslem, citronem a rajčatovým salátem s koprem"
+       },
+       {
+        "name": "Kuře ala kachna",
+        "price": "165 Kč",
+        "desc": "pečené kuřecí stehno s kmínem, šťáva z výpeku, dušené červené zelí, domácí braqmborový knedlík a křupavá cibulka"
+       },
+       {
+        "name": "Meruňkové knedlíky",
+        "price": "165 Kč",
+        "desc": "vařené tvarohové knedlíky s meruňkou, podávané s přepuštěným máslem, cukrem a strouhaným tvarohem"
+       },
+       {
+        "name": "Pečené koule s rajskou",
+        "price": "165 Kč",
+        "desc": "pečené koule z vepřového a hovězího masa s rajskou omáčkou a vařenými dobšickými kolínky"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Nejen moučníky",
+      "items": [
+       {
+        "name": "Bramborový koláč s borůvkami",
+        "price": "55 Kč",
+        "desc": "domácí koláč z bramborového těsta s borůvkami"
+       },
+       {
+        "name": "Zelný salát",
+        "price": "45 Kč",
+        "desc": "krouhané bílé zelí s koprem, kapkou citronu a cukrem"
+       }
+      ],
+      "extra": true
+     }
+    ],
+    "2026-11-21": [
+     {
+      "name": "Předkrmy",
+      "items": [
+       {
+        "name": "Hovězí rozbíf",
+        "price": "265 Kč",
+        "desc": "dorůžova pečený rostbíf, majonéza z medvědího česneku, marinovaná červená cibule, smažené kapary a domácí hranolky"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Frankfurtská polévka",
+        "price": "75 Kč",
+        "desc": "lehce zahuštěná polévka z opečeným párkem, bramborem, mletou paprikou a smetanou"
+       },
+       {
+        "name": "Slepičí vývar s nudlemi",
+        "price": "70 Kč",
+        "desc": "polévka z masitých slepic se zeleninou, masem, nudlemi a sekanou petrželovou natí"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Daněk na víně",
+        "price": "285 Kč",
+        "desc": "kostky dančí plece v silné omáčce z červeného vína, bylinek a koření, podávané se smaženými bramborovým kroketami s petrželovo-ořechovou salsou"
+       },
+       {
+        "name": "Stroganov z telecí kýty",
+        "price": "295 Kč",
+        "desc": "dušené nudličky hovězí kýty v krémové omáčce se zeleninou, podávané s pečenou výběrovou rýží s cibulí a hřebíčkem a smažená hlíva ústřičná"
+       },
+       {
+        "name": "Smažený platýs",
+        "price": "265 Kč",
+        "desc": "Smažený filet z platýse v trojobalu, podávaný s mléčnou bramborovou kaší, máslovým hráškem, citronem a domácí tatarkou"
+       },
+       {
+        "name": "Sváteční husí stehno",
+        "price": "499 Kč",
+        "desc": "konfitované husí stehno v sádle, hlávkové červené zelí, domácí houskový a bramborový knedlík, šťáva z výpeku a cibulka v sádle"
+       },
+       {
+        "name": "Telecí holandský řízek",
+        "price": "289 Kč",
+        "desc": "smažený řízek z mletého telecího krku, vepřového boku a sýru, kaše z brambor vařených v mléce, máslo a okurkový salát se zakysanou smetanou"
+       },
+       {
+        "name": "Grilovaný hovězí pupek",
+        "price": "475 Kč",
+        "desc": "grilovaný hovězí flank steak, hříbková omáčka, gratinované brambory a fazolové lusky na slanině"
+       },
+       {
+        "name": "Salát se sušenou kachnou",
+        "price": "229 Kč",
+        "desc": "křehké salátové listy, červená kapie, ředkvička, žlutá keříčková rajčata, kachní pršut z naší udírny, citronový čerstvý sýr, zálivka z bílého balsamika a pečivem"
+       }
+      ],
+      "extra": false
+     },
+     {
+      "name": "Knedlíkárna",
+      "items": [
+       {
+        "name": "Škvarkový knedlík s konfitovanou husou",
+        "price": "389 Kč",
+        "desc": "bramborový knedlík se škvarky plněný konfitovanou husou ve vlastní šťávě, dušené kysané červené zelí, karamelizovaný rakytník a ořechová drobenka"
+       }
+      ],
+      "extra": true
+     },
+     {
+      "name": "Nejen moučníky",
+      "items": [
+       {
+        "name": "Lískooříškový banánek",
+        "price": "105 Kč",
+        "desc": "banánek z lískových ořechů, slaný karamel, malinová omáčka a domácí karamelová zmrzlina"
+       },
+       {
+        "name": "Větrník s čokoládou",
+        "price": "115 Kč",
+        "desc": "domácí větrník s karamelovým krémem, šlehačkou a čokoládovým přelivem"
+       }
+      ],
+      "extra": true
+     }
+    ]
+   },
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "zapomenutycas",
+   "name": "Zapomenutý čas",
+   "url": "https://www.zapomenutycas.cz/",
+   "group": "nedochvilni",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí vývar s kořenovou zeleninou, masem a nudlemi",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Vepřová panenka Wellington - panenka balená ve slanině, hříbkovým pyré, hořčici v listovém těstě, zapečené gratinované brambory, demi-glace",
+        "price": "189 Kč"
+       },
+       {
+        "name": "Kuřecí gyros s trhaným a zelným salátem, tzatziki, hranolky, balkánský sýr, cibulka",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Smažený kuřecí řízek s vařenými bramborami s máslem, citrónem",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Vepřová plec na žampionech s houskovými knedlíky",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Pečená uzená kýta s bramborovou kaší, smaženou cibulkou, nakládanou okurkou a demi-glace",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Štěpánská z hovězího ořechu s uzeninou a vejci, dušená rýže",
+        "price": "189 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí vývar s kořenovou zeleninou, masem a nudlemi",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Moravský vrabec s dušeným červeným zelím a domácími houskovými knedlíky",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Pečené kuřecí stehno na másle a kmíně s bramborovo dýňovým pyré a smaženouc cibulkou",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Vepřová panenka na grilu, s omáčkou quatro formaggi, domácími bramborovými kroketami a zelný salátem",
+        "price": "185 Kč"
+       },
+       {
+        "name": "Grilovaná kuřecí prsíčka marinovaná v čerstvých bylinkách na krémovém arborio risottu s parmazánem a cuketou",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Smažený sýr gouda s vařenými máslovými bramborami , zelným salátem a tatarskou omáčkou",
+        "price": "179 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Gulášová s masem a bramborami",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Řízečky z vepřové panenky s domácím bramborovým salátem a citrónem",
+        "price": "185 Kč"
+       },
+       {
+        "name": "Wrap s trhaným kuřecím masem, bbq, čedarem, kukuřicí, tomaty v tortille, hranolky, trhané saláty s pikantním dipem",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Šiš kebab na špejli s hranolky, balkánským sýrem, česnekovým dipem a zelným salátem",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Tagliatelle Bolognese s hovězím ragú drcenými tomaty, bazalkovým pestem a sypané parmazánem",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Segedínský guláš s domácími houskovými knedlíky",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Kuřecí steak z prsíček, zapečený sýrem a uzeninou, americké brambory, tatarská omáčka a zelný salát",
+        "price": "179 Kč"
+       }
+      ]
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí vývar s kořenovou zeleninou, masem a nudlemi",
+        "price": "49 Kč"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Trhané hovězí pomalu dušené ve vlastní šťávě se sýrovou omáčkou, hranolky, demi-glace, smaženou cibulkou a zelným salátem",
+        "price": "189 Kč"
+       },
+       {
+        "name": "Trhané kuře na paprice, zjemněné smetanou, domácí houskový knedlík",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Grilovaná vepřová panenka, marinovaná v pepřovém koření na italském arborio risottu s hráškem, cuketou a parmazánem",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Srbská pljeskavica s paprikou, tomaty, cibulkou, opečenými bramborami, balkánským sýrem a zakysanou smetanou s česnekem",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Smažené kuřecí stripsy, mačkané brambory s cibulkou a sweet chilli majonézou",
+        "price": "179 Kč"
+       },
+       {
+        "name": "Smažený sedlčanský hermelín s vařenými máslovými bramborami, zelným salátem a tatarskou omáčkou",
+        "price": "179 Kč"
+       }
+      ]
+     }
+    ]
+   },
+   "status": "ok",
+   "checked": "2026-11-20T16:30:01+01:00"
+  },
+  {
+   "id": "everest",
+   "name": "Everest",
+   "url": "https://www.restauraceeverest.cz/denni-menu",
+   "group": "nedochvilni",
+   "note": "ceny bez polévky / s polévkou",
+   "days": {
+    "2026-11-16": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Rajčatová polévka",
+        "price": "",
+        "desc": "rajčatový krém se smetanou a indickým strouhaným sýrem"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí Masala",
+        "price": "160 Kč",
+        "desc": "kuřecí kostky v omáčce"
+       },
+       {
+        "name": "Keema curry",
+        "price": "160 Kč",
+        "desc": "vepřové maso v mírně ostré omáčce"
+       },
+       {
+        "name": "Paneer Pasanda",
+        "price": "160 Kč",
+        "desc": "tradiční indický sýr v jemné omáčce"
+       },
+       {
+        "name": "Kathmandu Special Mix Thali",
+        "price": "180 Kč",
+        "desc": "(mix jídel 3., 4., 5.)"
+       }
+      ]
+     }
+    ],
+    "2026-11-17": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Fazolová polévka",
+        "price": ""
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí Tikka",
+        "price": "160 Kč",
+        "desc": "ostře kořeněné kuřecí kostky"
+       },
+       {
+        "name": "Vepřové Badam",
+        "price": "160 Kč",
+        "desc": "vepřové kostky s mandlemi"
+       },
+       {
+        "name": "Palak Paneer",
+        "price": "89 Kč",
+        "desc": "špenát se sýrem paneer"
+       },
+       {
+        "name": "Kathmandu Special Mix Thali",
+        "price": "180 Kč",
+        "desc": "(mix jídel 3., 4., 5.)"
+       }
+      ]
+     }
+    ],
+    "2026-11-18": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Čočková polévka",
+        "price": ""
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí Mango",
+        "price": "160 Kč",
+        "desc": "kuřecí kostky v mangové omáčce"
+       },
+       {
+        "name": "Vepřové Kadai",
+        "price": "160 Kč",
+        "desc": "vepřové kostky v zeleninové omáčce"
+       },
+       {
+        "name": "Aloo Gobi",
+        "price": "160 Kč",
+        "desc": "brambory s květákem"
+       },
+       {
+        "name": "Kathmandu Special Mix Thali",
+        "price": "180 Kč",
+        "desc": "(mix jídel 3., 4., 5.)"
+       }
+      ]
+     }
+    ],
+    "2026-11-19": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Rajčatová polévka",
+        "price": "",
+        "desc": "rajčatový krém se smetanou a indickým strouhaným sýrem"
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Kuřecí Madras",
+        "price": "160 Kč",
+        "desc": "kuřecí kostky v jemně pálivé omáčce"
+       },
+       {
+        "name": "Vepřové Kari",
+        "price": "160 Kč",
+        "desc": "vepřové maso v kari omáčce"
+       },
+       {
+        "name": "Rayma Masala",
+        "price": "160 Kč",
+        "desc": "fazole v mírně ostré omáčce"
+       },
+       {
+        "name": "Kathmandu Special Mix Thali",
+        "price": "180 Kč",
+        "desc": "(mix jídel 3., 4., 5.)"
+       }
+      ]
+     }
+    ],
+    "2026-11-20": [
+     {
+      "name": "Polévky",
+      "items": [
+       {
+        "name": "Kuřecí polévka",
+        "price": "",
+        "desc": "jemný kuřecí vývar ochucený čerstvými bylinkami a smetanou"
+       },
+       {
+        "name": "Čočková polévka",
+        "price": ""
+       }
+      ]
+     },
+     {
+      "name": "Hlavní jídla",
+      "items": [
+       {
+        "name": "Máslové kuře",
+        "price": "160 Kč",
+        "desc": "kuřecí kostky s máslem"
+       },
+       {
+        "name": "Vepřové Vindaloo",
+        "price": "160 Kč",
+        "desc": "vepřové maso ve velmi pálivé omáčce"
+       },
+       {
+        "name": "Zeleninové Makhni",
+        "price": "160 Kč",
+        "desc": "zeleninová směs na másle"
+       },
+       {
+        "name": "Kathmandu Special Mix Thali",
+        "price": "180 Kč",
+        "desc": "(mix jídel 3., 4., 5.)"
+       }
+      ]
+     }
+    ]
+   },
+   "checked": "2026-11-20T08:51:32+01:00",
+   "status": "error",
+   "error": "ValueError: menu not found"
+  }
+ ]
+}
