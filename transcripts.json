@@ -1,0 +1,350 @@
+{
+ "img/lacasablu-543ba1b0bc.jpg": {
+  "transcribed": "2026-11-16T07:54:29+01:00",
+  "title": "polední menu 16. 11.–6. 12.",
+  "week": {
+   "from": "2026-11-16",
+   "to": "2026-12-06",
+   "sections": [
+    {
+     "name": "Klasika s polévkou",
+     "items": [
+      {
+       "name": "Nachos chile con carne pro 1 os.",
+       "price": "232 Kč"
+      },
+      {
+       "name": "Kuřecí quesadilla",
+       "price": "232 Kč"
+      },
+      {
+       "name": "Vegetariánské burrito",
+       "price": "232 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Speciál s polévkou",
+     "items": [
+      {
+       "name": "Churrasco",
+       "price": "293 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Super speciál s polévkou",
+     "items": [
+      {
+       "name": "Kuřecí fajitas",
+       "price": "333 Kč"
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Nabídka nápojů k polednímu menu",
+     "items": [
+      {
+       "name": "Pepsi nebo Mirinda 0,25L",
+       "price": "29 Kč"
+      },
+      {
+       "name": "Staropramen 0,3L",
+       "price": "25 Kč"
+      },
+      {
+       "name": "Staropramen 0,5L",
+       "price": "35 Kč"
+      }
+     ],
+     "extra": true
+    }
+   ]
+  }
+ },
+ "img/lacasablu-54f17d125f.jpg": {
+  "transcribed": "2026-11-23T09:58:00+01:00",
+  "title": "polední menu",
+  "note": "Malá polévka k menu 24 Kč / Menu 218,- | Velká polévka k menu 44 Kč / Menu 238,- K polednímu menu studený čaj zdarma",
+  "days": {
+   "2026-11-23": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Kuřecí vývar",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Quesadilla s kachním masem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-24": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Kuřecí polévka s arašídy a kokosovým mlékem",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Tostadas s hovězím masem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-25": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka mexická koriandrová s masovými kuličkami",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Burger s vepřovou panenkou a fazolkami",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-26": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Kulajda",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Tacos s trhaným hovězím",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-27": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Bramboračka",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Niňo gordo s kuřetem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-28": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Sopa Tarasca Michoacana",
+       "price": ""
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-11-29": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Sopa Tarasca Michoacana",
+       "price": ""
+      }
+     ],
+     "extra": false
+    }
+   ]
+  }
+ },
+ "img/lacasablu-a2d1980b09.jpg": {
+  "transcribed": "2026-11-23T09:58:00+01:00",
+  "title": "polední menu",
+  "note": "Malá polévka k menu 24 Kč / Menu 218,- | Velká polévka k menu 44 Kč / Menu 238,- K polednímu menu studený čaj zdarma",
+  "days": {
+   "2026-11-30": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka čočková",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Sendvič s hovězím masem, rajčaty, klíčky a nakládanou cibulkou",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-12-01": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Polévka cibulová",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Flautas s kuřetem a adobe omáčkou",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-12-02": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Caldo Tlalpeňo",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Lososový steak s citronovou omáčkou s kokosem a puré z batátu, brambor a špenátu",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-12-03": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Dýňová polévka s miso",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Quesadilla s hovězím masem a avokádem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-12-04": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Zelňačka",
+       "price": ""
+      }
+     ],
+     "extra": false
+    },
+    {
+     "name": "Hlavní jídla",
+     "items": [
+      {
+       "name": "Hovězí medailonky se salsou criolla a pečeným bramborem",
+       "price": "194 Kč"
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-12-05": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Sopa Azteca",
+       "price": ""
+      }
+     ],
+     "extra": false
+    }
+   ],
+   "2026-12-06": [
+    {
+     "name": "Polévky",
+     "items": [
+      {
+       "name": "Sopa Azteca",
+       "price": ""
+      }
+     ],
+     "extra": false
+    }
+   ]
+  }
+ }
+}
